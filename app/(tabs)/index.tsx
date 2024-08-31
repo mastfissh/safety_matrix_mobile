@@ -1,5 +1,5 @@
 import React from 'react';
-import data from "../assets/data/data.json";
+import data from "../../assets/data/data.json";
 import { Text, View } from 'react-native';
 import { styled } from 'nativewind';
 
