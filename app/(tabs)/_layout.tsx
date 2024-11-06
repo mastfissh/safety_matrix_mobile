@@ -1,5 +1,6 @@
-import FontAwesome from '@expo/vector-icons/FontAwesome';
+import Entypo from '@expo/vector-icons/Entypo';
 import { Tabs } from 'expo-router';
+import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 
 export default function TabLayout() {
   return (
@@ -8,14 +9,17 @@ export default function TabLayout() {
         name="index"
         options={{
           title: 'Home',
-          tabBarIcon: ({ color }) => <FontAwesome size={28} name="home" color={color} />,
+          tabBarIcon: ({ color }) => <Entypo name="grid" size={24} color="black" />,
         }}
       />
       <Tabs.Screen
-        name="settings"
+        name="[psychs]"
         options={{
-          title: 'Settings',
-          tabBarIcon: ({ color }) => <FontAwesome size={28} name="cog" color={color} />,
+          title: 'Psychs',
+          tabBarIcon: ({ color }) => <FontAwesome5 name="book" size={24} color="black" />,
+          href: {
+            pathname: '/(tabs)/(psych)',
+          },
         }}
       />
     </Tabs>
