@@ -16,8 +16,9 @@
       "supportsTablet": true
     },
     "android": {
+      "package": "com.yourcompany.yourappname",
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "foregroundImage": "./assets/images/adaptive_icon.png",
         "backgroundColor": "#ffffff"
       }
     },
@@ -28,7 +29,8 @@
     },
     "plugins": [
       "expo-router",
-      ["expo-build-properties",
+      [
+        "expo-build-properties",
         {
           "ios": {
             "newArchEnabled": true
@@ -36,7 +38,17 @@
           "android": {
             "newArchEnabled": true
           }
-        }]
+        }
+      ],
+      [
+        "expo-asset",
+        {
+          "assets": [
+            "./assets/images",
+            "./assets/images/_astro"
+          ]
+        }
+      ]
     ],
     "experiments": {
       "typedRoutes": true

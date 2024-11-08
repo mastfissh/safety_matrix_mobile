@@ -1,16 +1,23 @@
 import React from 'react';
+import psychoactives from "../../../../assets/data/psychoactives.json";
 import { useLocalSearchParams } from 'expo-router';
 import { Text, View } from 'react-native';
 import { styled } from 'nativewind';
-import { Link } from 'expo-router';
+import { Image } from 'expo-image';
 const StyledView = styled(View)
 const StyledText = styled(Text)
+let idx = {} as any;
+for (let sub of psychoactives) {
+  idx[sub["slug"]] = sub;
+}
 
 const App = () => {
   const { slug } = useLocalSearchParams();
+  const record = idx[slug as string]
   return (
     <StyledView className="flex-1 items-center justify-center">
-      <StyledText className="text-slate-800">Details for {slug}</StyledText>
+       <Image source={"i_"+ (slug as string).replaceAll('-', "_")}  style={{ width: 50, height: 50 }}/>
+      <StyledText className="text-slate-800">Details for {record.data.title}</StyledText>
     </StyledView>
   );
 }

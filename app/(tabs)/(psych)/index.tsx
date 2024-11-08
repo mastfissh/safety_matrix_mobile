@@ -5,6 +5,7 @@ import { combo, risk, drug_css_prefix, confidence, linkify } from "../../../asse
 import { Text, View,ScrollView } from 'react-native';
 import { styled } from 'nativewind';
 import { Link } from 'expo-router';
+import { Image } from 'expo-image';
 
 const StyledView = styled(View)
 const StyledText = styled(Text)
@@ -18,7 +19,6 @@ for (let drug of data["drugs"]) {
   substances.push(item);
 }
 const App = () => {
-  console.debug(substances)
   return (
     <StyledView className="flex-1 items-center justify-center">
 
@@ -32,6 +32,7 @@ const App = () => {
               className="bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 h-auto"
             >
               <StyledView className="p-4 h-24">
+              <Image source={"i_"+ (substance.slug as string).replaceAll('-', "_")}  style={{ width: 50, height: 50 }}/>
               <Link href={{
                   pathname: '/details/[slug]',
                   params: { slug: substance.slug },
