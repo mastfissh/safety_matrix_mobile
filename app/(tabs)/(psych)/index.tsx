@@ -1,14 +1,13 @@
 import React from 'react';
 import data from "../../../assets/data/data.json";
 import psychoactives from "../../../assets/data/psychoactives.json";
-import { combo, risk, drug_css_prefix, confidence, linkify } from "../../../assets/util";
-import { Text, View,ScrollView } from 'react-native';
+import { linkify } from "../../util";
+import { View, ScrollView } from 'react-native';
 import { styled } from 'nativewind';
 import { Link } from 'expo-router';
 import { Image } from 'expo-image';
 
 const StyledView = styled(View)
-const StyledText = styled(Text)
 let idx = {} as any;
 for (let sub of psychoactives) {
   idx[sub["slug"]] = sub;

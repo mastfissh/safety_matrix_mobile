@@ -9,19 +9,10 @@ export default function TabLayout() {
         name="index"
         options={{
           title: 'Home',
-          tabBarIcon: ({ color }) => <Entypo name="grid" size={24} color="black" />,
+          tabBarIcon: () => <Entypo name="grid" size={24} color="black" />,
         }}
       />
-      <Tabs.Screen
-        name="[psychs]"
-        options={{
-          title: 'Psychs',
-          tabBarIcon: ({ color }) => <FontAwesome5 name="book" size={24} color="black" />,
-          href: {
-            pathname: '/(tabs)/(psych)',
-          },
-        }}
-      />
+
     </Tabs>
   );
 }
