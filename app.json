@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "combos",
-    "slug": "combos",
+    "slug": "safety-matrix",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
@@ -53,6 +53,15 @@
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "ec3bb2ae-1dda-4647-947e-f0c9485c7acf"
+      }
+    },
+    "owner": "mastfish-org"
   }
 }
