@@ -2,7 +2,7 @@ import React,{Fragment, useState} from 'react';
 import data from "../../assets/data/data.json";
 import { Text, View, FlatList,Switch } from 'react-native';
 import { styled } from 'nativewind';
-import { risk, risk_to_bg } from '../util';
+import { risk, risk_to_bg } from '../../components/util';
 import { Link } from 'expo-router';
 
 const StyledView = styled(View)
