@@ -16,11 +16,11 @@ const App = () => {
 
   
   const [currentState, setState] = useState(state);
-  const isChecked = target => {
+  const isChecked = (target: string) => {
     return (currentState.checked_boxes.includes(target));
   }
-  const toggle = (target) => {
-    const toggle2 = (checked) => {
+  const toggle = (target: string) => {
+    const toggle2 = (checked: any) => {
       
       // let checked = (!state.checked_boxes.includes(target));
       let checked_boxes = JSON.parse(JSON.stringify(currentState.checked_boxes))
@@ -29,7 +29,7 @@ const App = () => {
       if (checked) {
         checked_boxes.push(target)
       } else {
-        checked_boxes = checked_boxes.filter(item => item !== target)
+        checked_boxes = checked_boxes.filter((item: any) => item !== target)
       }
 
       console.debug(checked_boxes)
