@@ -48,7 +48,8 @@
             "./assets/images/_astro"
           ]
         }
-      ]
+      ],
+      "expo-font"
     ],
     "experiments": {
       "typedRoutes": true

@@ -1,7 +1,7 @@
 import React from 'react';
 import data from "../../../assets/data/data.json";
 import psychoactives from "../../../assets/data/psychoactives.json";
-import { linkify } from "../../util";
+import { linkify } from "../../../components/util";
 import { View, ScrollView } from 'react-native';
 import { styled } from 'nativewind';
 import { Link } from 'expo-router';

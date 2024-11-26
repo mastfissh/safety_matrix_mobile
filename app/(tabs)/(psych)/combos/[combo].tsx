@@ -4,7 +4,7 @@ import { useLocalSearchParams } from 'expo-router';
 import { Text, View } from 'react-native';
 import { styled } from 'nativewind';
 import { Image } from 'expo-image';
-import { risk, confidence, risk_to_bg } from '../../../util';
+import { risk, confidence, risk_to_bg } from '../../../../components/util';
 const StyledView = styled(View)
 const StyledText = styled(Text)
 let idx = {} as any;
