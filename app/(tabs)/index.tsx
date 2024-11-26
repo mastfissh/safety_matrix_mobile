@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React,{Fragment, useState} from 'react';
 import data from "../../assets/data/data.json";
 import { Text, View, FlatList,Switch } from 'react-native';
 import { styled } from 'nativewind';
@@ -7,13 +7,41 @@ import { Link } from 'expo-router';
 
 const StyledView = styled(View)
 const StyledText = styled(Text)
-
+const state = {
+  checked_boxes: ['alcohol', 'cannabis', 'cocaine', 'ketamine'],
+};
 const App = () => {
+  const initialState = {cocaine:true}
+  // const [mapping, setMapping] = useState(initialState);
+
   
-  const [isEnabled, setIsEnabled] = useState(false);
-  const toggleSwitch = () => setIsEnabled(previousState => !previousState);
-  const chosen = ['alcohol', 'cannabis', 'cocaine']
-  const chart = [""].concat(chosen)
+  const [currentState, setState] = useState(state);
+  const isChecked = target => {
+    return (currentState.checked_boxes.includes(target));
+  }
+  const toggle = (target) => {
+    const toggle2 = (checked) => {
+      
+      // let checked = (!state.checked_boxes.includes(target));
+      let checked_boxes = JSON.parse(JSON.stringify(currentState.checked_boxes))
+      console.debug(checked)
+      console.debug(checked_boxes)
+      if (checked) {
+        checked_boxes.push(target)
+      } else {
+        checked_boxes = checked_boxes.filter(item => item !== target)
+      }
+
+      console.debug(checked_boxes)
+      setState({ checked_boxes });
+    }
+    return toggle2
+  };
+  console.debug(currentState)
+  
+  // const toggleSwitch = () => setIsEnabled(previousState => !previousState);
+  // const chosen = ['alcohol', 'cannabis', 'cocaine']
+  const chart = [""].concat(currentState.checked_boxes)
   const grid = [];
   for (const subcol of chart){
     for (const subrow of chart){
@@ -40,15 +68,21 @@ const App = () => {
   };
   return (
     <StyledView className="flex-1 items-center justify-center">
-      <StyledText className="bg-cyan-400">test</StyledText>
+      {state.checked_boxes.map(item => (
+        <Fragment>
+        <StyledText className="bg-cyan-400">{item}</StyledText>
       <Switch
+        key={item}
           trackColor={{false: '#767577', true: '#81b0ff'}}
-          thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
+          // thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
           ios_backgroundColor="#3e3e3e"
-          onValueChange={toggleSwitch}
-          value={isEnabled}
+          onValueChange={toggle(item)}
+          value={isChecked(item)}
         />
+        </Fragment>
+      ))}
       <FlatList
+        key={JSON.stringify(currentState.checked_boxes)}
         data={grid}
         numColumns={chart.length}
         renderItem={Item}
