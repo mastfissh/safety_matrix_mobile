@@ -11,36 +11,22 @@ const state = {
   checked_boxes: ['alcohol', 'cannabis', 'cocaine', 'ketamine'],
 };
 const App = () => {
-  const initialState = {cocaine:true}
-  // const [mapping, setMapping] = useState(initialState);
-
-  
   const [currentState, setState] = useState(state);
   const isChecked = (target: string) => {
     return (currentState.checked_boxes.includes(target));
   }
   const toggle = (target: string) => {
-    const toggle2 = (checked: any) => {
-      
-      // let checked = (!state.checked_boxes.includes(target));
+    const toggle2 = (checked: any) => {      
       let checked_boxes = JSON.parse(JSON.stringify(currentState.checked_boxes))
-      console.debug(checked)
-      console.debug(checked_boxes)
       if (checked) {
         checked_boxes.push(target)
       } else {
         checked_boxes = checked_boxes.filter((item: any) => item !== target)
       }
-
-      console.debug(checked_boxes)
       setState({ checked_boxes });
     }
     return toggle2
   };
-  console.debug(currentState)
-  
-  // const toggleSwitch = () => setIsEnabled(previousState => !previousState);
-  // const chosen = ['alcohol', 'cannabis', 'cocaine']
   const chart = [""].concat(currentState.checked_boxes)
   const grid = [];
   for (const subcol of chart){
@@ -69,7 +55,7 @@ const App = () => {
   return (
     <StyledView className="flex-1 items-center justify-center">
       {state.checked_boxes.map(item => (
-        <Fragment>
+        <Fragment key={item}>
         <StyledText className="bg-cyan-400">{item}</StyledText>
       <Switch
         key={item}
