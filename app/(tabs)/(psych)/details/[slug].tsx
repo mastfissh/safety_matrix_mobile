@@ -12,8 +12,8 @@ for (let sub of psychoactives) {
 }
 
 const App = () => {
-  const { slug } = useLocalSearchParams();
-  const record = idx[slug as string]
+  const { slug } : {slug:string} = useLocalSearchParams();
+  const record = idx[slug]
   return (
     <StyledView className="flex-1 items-center justify-center">
        <Image source={"i_"+ (slug as string).replaceAll('-', "_")}  style={{ width: 50, height: 50 }}/>
