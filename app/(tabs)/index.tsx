@@ -2,11 +2,9 @@ import React,{Fragment, useState} from 'react';
 import data from "../../assets/data/data.json";
 import { Text, View, FlatList,Switch } from 'react-native';
 import { styled } from 'nativewind';
-import { risk, risk_to_bg } from '../../components/util';
+import { risk, risk_to_bg } from '../../lib/util';
 import { Link } from 'expo-router';
 
-const StyledView = styled(View)
-const StyledText = styled(Text)
 const state = {
   checked_boxes: ['alcohol', 'cannabis', 'cocaine', 'ketamine'],
 };
@@ -39,10 +37,10 @@ const App = () => {
     item.sort()
     const [x, y] = item;
     if (x == "") {
-      return <View  ><StyledText className="text-slate-800 text-xl w-24">{y}</StyledText></View>;
+      return <View  ><Text className="text-slate-800 text-xl w-24">{y}</Text></View>;
     }
     let classes = " " + risk_to_bg(risk([x,y], data))
-    return <StyledView className={classes}>
+    return <View className={classes}>
         <Link href={{
                   pathname: '/combos/[combo]',
                   params: { combo: `${x}|${y}` },
@@ -50,17 +48,16 @@ const App = () => {
                 className="text-slate-800 w-24">
                 {x}, {y}
               </Link>
-      </StyledView>;
+      </View>;
   };
   return (
-    <StyledView className="flex-1 items-center justify-center">
+    <View className="flex-1 items-center justify-center">
       {state.checked_boxes.map(item => (
         <Fragment key={item}>
-        <StyledText className="bg-cyan-400">{item}</StyledText>
+        <Text>{item}</Text>
       <Switch
         key={item}
           trackColor={{false: '#767577', true: '#81b0ff'}}
-          // thumbColor={isEnabled ? '#f5dd4b' : '#f4f3f4'}
           ios_backgroundColor="#3e3e3e"
           onValueChange={toggle(item)}
           value={isChecked(item)}
@@ -73,7 +70,7 @@ const App = () => {
         numColumns={chart.length}
         renderItem={Item}
       />
-    </StyledView>
+    </View>
   );
 }
 
