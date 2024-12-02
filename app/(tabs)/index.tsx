@@ -1,31 +1,44 @@
 import React,{Fragment, useState} from 'react';
 import data from "../../assets/data/data.json";
-import { Text, View, FlatList,Switch } from 'react-native';
-import { styled } from 'nativewind';
+import psychoactives from "../../assets/data/psychoactives.json";
+import { Text, View, FlatList,Switch, ScrollView } from 'react-native';
 import { risk, risk_to_bg } from '../../lib/util';
 import { Link } from 'expo-router';
 
+const list :any = {}
+const mainlist: any[] = []
+const preselected = ['alcohol', 'cannabis', 'cocaine', 'ketamine']
+for (let sub of psychoactives) {
+  list[sub["slug"]] = preselected.includes(sub["slug"])
+  mainlist.push(sub["slug"])
+}
+
 const state = {
-  checked_boxes: ['alcohol', 'cannabis', 'cocaine', 'ketamine'],
+  checked_boxes: list,
 };
 const App = () => {
   const [currentState, setState] = useState(state);
   const isChecked = (target: string) => {
-    return (currentState.checked_boxes.includes(target));
+    return (currentState.checked_boxes[target]);
   }
   const toggle = (target: string) => {
-    const toggle2 = (checked: any) => {      
+    const toggle2 = (checked: any) => {    
       let checked_boxes = JSON.parse(JSON.stringify(currentState.checked_boxes))
-      if (checked) {
-        checked_boxes.push(target)
-      } else {
-        checked_boxes = checked_boxes.filter((item: any) => item !== target)
-      }
+      checked_boxes[target] = checked
       setState({ checked_boxes });
     }
     return toggle2
   };
-  const chart = [""].concat(currentState.checked_boxes)
+  const chart = [""]
+  for (const [key, val] of Object.entries(currentState.checked_boxes)) {
+    if (val){
+      chart.push(key)
+    }
+  }
+  // for (const t of currentState.checked_boxes){
+   
+  // }
+  // const chart = [""].concat(Object.keys(currentState.checked_boxes))
   const grid = [];
   for (const subcol of chart){
     for (const subrow of chart){
@@ -52,20 +65,21 @@ const App = () => {
   };
   return (
     <View className="flex-1 items-center justify-center">
-      {state.checked_boxes.map(item => (
-        <Fragment key={item}>
-        <Text>{item}</Text>
+      <ScrollView>
+      {mainlist.map(item => (
+        <Fragment key={JSON.stringify(item)}>
+        <Text>{JSON.stringify(item)}</Text>
       <Switch
-        key={item}
+        key={JSON.stringify(item)}
           trackColor={{false: '#767577', true: '#81b0ff'}}
           ios_backgroundColor="#3e3e3e"
           onValueChange={toggle(item)}
           value={isChecked(item)}
         />
         </Fragment>
-      ))}
+      ))}</ScrollView>
       <FlatList
-        key={JSON.stringify(currentState.checked_boxes)}
+        key={JSON.stringify(chart)}
         data={grid}
         numColumns={chart.length}
         renderItem={Item}
