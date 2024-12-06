@@ -35,10 +35,6 @@ const App = () => {
       chart.push(key)
     }
   }
-  // for (const t of currentState.checked_boxes){
-   
-  // }
-  // const chart = [""].concat(Object.keys(currentState.checked_boxes))
   const grid = [];
   for (const subcol of chart){
     for (const subrow of chart){
@@ -50,7 +46,13 @@ const App = () => {
     item.sort()
     const [x, y] = item;
     if (x == "") {
-      return <View  ><Text className="text-slate-800 text-xl w-24">{y}</Text></View>;
+      return <View  ><Link href={{
+        pathname: '/details/[slug]',
+        params: { slug: y },
+      }}
+      className="text-slate-800 text-xl w-24">
+      {y}
+    </Link></View>;
     }
     let classes = " " + risk_to_bg(risk([x,y], data))
     return <View className={classes}>
