@@ -14,10 +14,10 @@
     },
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.yourcompany.yourappname"
+      "bundleIdentifier": "com.mastfish.psychcombo"
     },
     "android": {
-      "package": "com.yourcompany.yourappname",
+      "package": "com.mastfish.psychcombo",
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/adaptive_icon.png",
         "backgroundColor": "#ffffff"
