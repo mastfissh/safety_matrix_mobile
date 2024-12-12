@@ -45,7 +45,7 @@ const App = () => {
   const Item = ({ item }: { item: ItemProps }) => {
     item.sort()
     const [x, y] = item;
-    if ((x == "") || (x==y)) {
+    if ((x === "") || (x===y)) {
       return <View  ><Link href={{
         pathname: '/details/[slug]',
         params: { slug: y },

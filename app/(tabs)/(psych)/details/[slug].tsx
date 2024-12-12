@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import psychoactives from "../../../../assets/data/psychoactives.json";
 import Markdown from "react-native-marked";
 import { useLocalSearchParams } from 'expo-router';
@@ -31,6 +31,7 @@ const App = () => {
   const record = idx[slug]
   const entry = record
   return (
+    <Fragment>
     <ScrollView>
     <View className="flex-1 items-center justify-center">
        <Image source={"i_"+ (slug as string).replaceAll('-', "_")}  style={{ width: 500, height: 50 }}/>
@@ -54,13 +55,15 @@ const App = () => {
      <Text>{entry.data.positive_effects}</Text>
      <Text> {entry.data.neutral_effects}</Text>
      <Text> {entry.data.negative_effects}</Text>
-     
+     </View>
+     </ScrollView>
       <Markdown
       value={record.body}
       flatListProps={{
         initialNumToRender: 8,
       }}
     />
+    <ScrollView>
     <LineGraph
     key="graph"
   points={series}
@@ -69,8 +72,9 @@ const App = () => {
   className="absolute align-middle mb-4"
   style={{ width: 50, height: 50 }}
 />
-    </View>
+    
     </ScrollView>
+    </Fragment>
   );
 }
 
