@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import psychoactives from "../../../../assets/data/psychoactives.json";
+import psychoactives from "../../assets/data/psychoactives.json";
 import Markdown from "react-native-marked";
 import { useLocalSearchParams } from 'expo-router';
 import { Text, View, ScrollView } from 'react-native';

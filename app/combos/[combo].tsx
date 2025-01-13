@@ -1,8 +1,8 @@
 import React from 'react';
-import psychoactives from "../../../../assets/data/psychoactives.json";
-import combos from "../../../../assets/data/combos.json";
-import data from "../../../../assets/data/data.json";
-import { confidence, risk } from "../../../../lib/util";
+import psychoactives from "../../assets/data/psychoactives.json";
+import combos from "../../assets/data/combos.json";
+import data from "../../assets/data/data.json";
+import { confidence, risk } from "../../lib/util";
 import Markdown from "react-native-marked";
 import { useLocalSearchParams } from 'expo-router';
 import { Text, View } from 'react-native';
