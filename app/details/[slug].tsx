@@ -49,16 +49,7 @@ const App = () => {
     <Fragment>
       <ScrollView>
         <View className="flex-1 items-center justify-center">
-          {/* <Image
-            source={"i_" + (slug as string).replaceAll("-", "_")}
-            style={{ width: 500, height: 50 }}
-          />
 
-          <Image
-            className="mb-4 h-auto max-w-full rounded-lg align-middle leading-none shadow-lg"
-            alt={entry.data.image_caption}
-            source={"i_" + (slug as string).replaceAll("-", "_")}
-          /> */}
           <Text className="text-sm absolute mb-4 bottom-0 z-90 rounded-lg bg-black/75 px-5 py-2 text-white">
             {entry.data.image_caption}
           </Text>

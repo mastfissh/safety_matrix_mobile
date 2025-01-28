@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import { risk, risk_to_bg } from "../../lib/util";
 import { Link } from "expo-router";
+import AntDesign from '@expo/vector-icons/AntDesign';
 
 const list: any = {};
 const mainlist: any[] = [];
@@ -165,11 +166,7 @@ const App = () => {
         <Text>Decrease = reduced effects</Text>
       </View>
       <Text className="flex space-x-4">
-        {/* <Icon
-          iconCode="exclamation-circle"
-          iconStyle="outline"
-          customClasses="h-7 w-7 inline"
-        /> */}
+      <AntDesign name="exclamationcircleo" size={24} color="black" className="h-7 w-7 inline" />
         = low confidence in the risk rating
       </Text>
       <View className="grid grid-cols-2 lg:grid-cols-3">
