@@ -37,7 +37,8 @@ const App = () => {
                     source={
                       "i_" + (substance.slug as string).replaceAll("-", "_")
                     }
-                    style={{ width: 50, height: 50 }}
+                    
+                    className="text-2xl font-bold tracking-tight text-gray-600 p-4 h-24"
                   />
 
                   {substance.data.title}
