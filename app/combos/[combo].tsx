@@ -39,6 +39,7 @@ const App = () => {
         value={str}
         flatListProps={{
           initialNumToRender: 8,
+          style: { width: "100%" },
         }}
       />
     </View>

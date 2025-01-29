@@ -1,9 +1,12 @@
-import React, { Fragment } from "react";
+import React, {
+	useCallback,
+	type ReactElement,
+	type ReactNode,
+} from "react";
 import psychoactives from "../../assets/data/psychoactives.json";
-import Markdown from "react-native-marked";
+import { FlatList } from "react-native";
+import { useMarkdown, type useMarkdownHookOptions } from "react-native-marked";
 import { useLocalSearchParams } from "expo-router";
-import { Text, View, ScrollView } from "react-native";
-import { Image } from "expo-image";
 
 let idx = {} as any;
 for (let sub of psychoactives) {
@@ -33,44 +36,67 @@ const App = () => {
   ];
   const record = idx[slug];
   const entry = record;
+  let placeholder = "";
+  if (entry.data.family_members) {
+    placeholder = ` ${entry.data.title} is not just one drug; ${
+      entry.data.title
+    } is a
+              group of drugs. Drugs in this group include{" "}
+              ${entry.data.family_members.join(", ")}. Drugs within the same
+              group can have very different dosages and very different effects.`;
+  }
   const str = `
-  ![${entry.data.image_caption}](${"i_" + (slug as string).replaceAll("-", "_")})
+  ![${entry.data.image_caption}](${
+    "i_" + (slug as string).replaceAll("-", "_")
+  })
   *${entry.data.image_caption}*
 
     Details for ${record.data.title}
     ${entry.data.title}
+    ${placeholder}
     Effects 
     ${entry.data.positive_effects}
     ${entry.data.neutral_effects}
     ${entry.data.negative_effects}
-    ${record.body.replaceAll("import Chart from '../../components/chart.astro';", "").replaceAll("<Chart title={frontmatter.duration_chart_title} data={frontmatter.duration_chart} />", "")}
+    ${record.body
+      .replaceAll("import Chart from '../../components/chart.astro';", "")
+      .replaceAll(
+        "<Chart title={frontmatter.duration_chart_title} data={frontmatter.duration_chart} />",
+        ""
+      )}
   `;
+  const colorScheme = "light";
+  const options: useMarkdownHookOptions = {
+    colorScheme
+  }
+	const rnElements = useMarkdown(str,options);
+
+	const renderItem = useCallback(({ item }: { item: ReactNode }) => {
+		return item as ReactElement;
+	}, []);
+
+	const keyExtractor = useCallback(
+		(_: ReactNode, index: number) => index.toString(),
+		[],
+	);
   return (
-    <Fragment>
-      <ScrollView>
-        <View className="flex-1 items-center justify-center">
-
-          <Text className="text-sm absolute mb-4 bottom-0 z-90 rounded-lg bg-black/75 px-5 py-2 text-white">
-            {entry.data.image_caption}
-          </Text>
-
-          {entry.data.family_members && (
-            <Text>
-              {entry.data.title} is not just one drug; {entry.data.title} is a
-              group of drugs. Drugs in this group include{" "}
-              {entry.data.family_members.join(", ")}. Drugs within the same
-              group can have very different dosages and very different effects.
-            </Text>
-          )}
-        </View>
-      </ScrollView>
-      <Markdown
-        value={str}
-        flatListProps={{
-          initialNumToRender: 8,
-        }}
-      />
-    </Fragment>
+    <FlatList
+    removeClippedSubviews={false}
+    keyExtractor={keyExtractor}
+    maxToRenderPerBatch={8}
+    initialNumToRender={8}
+    style={{
+      backgroundColor: colorScheme === "light" ? "#ffffff" : "#000000",
+    }}
+    data={rnElements}
+    renderItem={renderItem}
+  />
+    // <Markdown
+    //   value={str}
+    //   flatListProps={{
+    //     initialNumToRender: 8,      
+    //   }}
+    // />
   );
 };
 

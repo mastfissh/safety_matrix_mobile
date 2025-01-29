@@ -6,7 +6,9 @@ import "../global.css";
 export default function Layout() {
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
-      <Stack>
+      <Stack screenOptions={{
+        headerShown: false
+      }}>
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
       </Stack>
     </GestureHandlerRootView>
