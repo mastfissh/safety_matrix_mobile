@@ -91,12 +91,6 @@ const App = () => {
     data={rnElements}
     renderItem={renderItem}
   />
-    // <Markdown
-    //   value={str}
-    //   flatListProps={{
-    //     initialNumToRender: 8,      
-    //   }}
-    // />
   );
 };
 
