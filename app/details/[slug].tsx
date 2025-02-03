@@ -1,6 +1,5 @@
 import { useLocalSearchParams } from "expo-router";
-import {
-  default as React,
+import React,{
   useCallback,
   useEffect,
   useState,

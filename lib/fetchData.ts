@@ -42,3 +42,11 @@ export const cachedCombos = async (): Promise<any> => {
   const result = await Promise.race([network, fallback]);
   return JSON.parse(result);
 };
+
+export const gridState = async (): Promise<any> => {
+  return fetchFromCache("chosenPsychs", JSON.stringify(["alcohol", "cannabis", "cocaine", "ketamine"]));
+};
+
+export const saveGridState = async (state: any): Promise<void> => {
+  AsyncStorage.setItem("chosenPsychs", JSON.stringify(state));
+}

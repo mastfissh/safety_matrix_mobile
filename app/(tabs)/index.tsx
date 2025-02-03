@@ -1,34 +1,56 @@
-import React, { Fragment, useState } from "react";
-import data from "../../assets/data/data.json";
-import psychoactives from "../../assets/data/psychoactives.json";
+import AntDesign from "@expo/vector-icons/AntDesign";
+import { Link } from "expo-router";
+import React, { Fragment, useEffect, useState } from "react";
 import {
-  Text,
-  View,
   FlatList,
-  Switch,
-  ScrollView,
   Modal,
   Pressable,
+  ScrollView,
   SectionList,
+  Switch,
+  Text,
+  View,
 } from "react-native";
 import { risk, risk_to_bg } from "../../lib/util";
-import { Link } from "expo-router";
-import AntDesign from "@expo/vector-icons/AntDesign";
 
-const list: any = {};
-const mainlist: any[] = [];
-const preselected = ["alcohol", "cannabis", "cocaine", "ketamine"];
-for (let sub of psychoactives) {
-  list[sub["slug"]] = preselected.includes(sub["slug"]);
-  mainlist.push(sub["slug"]);
-}
+import { cachedPsychs, cachedRisks, gridState, saveGridState } from "../../lib/fetchData";
 
-const state = {
-  checked_boxes: list,
-};
 const App = () => {
+  const [mainlist, setMainlist] = useState<any[]>([]);
+  const [risks, setRisks] = useState<any[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
-  const [currentState, setState] = useState(state);
+  const [currentState, setState] = useState<{ checked_boxes: { [key: string]: boolean } }>({ checked_boxes: {} });
+  useEffect(() => {
+    const fetchAndSetData = async () => {
+      try {
+        const psychs = await cachedPsychs();
+        const risks = await cachedRisks();
+        const preselected = await gridState();
+        const list: any = {};
+        const mainlist: any[] = [];
+        for (let sub of psychs) {
+          list[sub["slug"]] = preselected.includes(sub["slug"]);
+          mainlist.push(sub["slug"]);
+        }
+        const state = {
+          checked_boxes: list,
+        };
+        setRisks(risks);
+        setState(state);
+        setMainlist(mainlist);
+        setIsLoading(false);
+      } catch (error) {
+        console.debug("Error fetching data:", error);
+        setIsLoading(false);
+      }
+    };
+
+    fetchAndSetData();
+  }, []);
+  
+  
   const isChecked = (target: string) => {
     return currentState.checked_boxes[target];
   };
@@ -39,6 +61,13 @@ const App = () => {
       );
       checked_boxes[target] = checked;
       setState({ checked_boxes });
+      const saved = [];
+      for (const [key, val] of Object.entries(checked_boxes)) {
+        if (val) {
+          saved.push(key);
+        }
+      }
+      saveGridState(saved);
     };
     return toggle2;
   };
@@ -73,7 +102,10 @@ const App = () => {
         </View>
       );
     }
-    let classes = " " + risk_to_bg(risk([x, y], data));
+    let classes = " ";
+    if (!isLoading) {
+      classes = risk_to_bg(risk([x, y], risks));
+    }
     return (
       <View className={classes}>
         <Link

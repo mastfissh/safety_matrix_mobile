@@ -2,9 +2,7 @@ import { useLocalSearchParams } from "expo-router";
 import React, { useEffect, useState } from "react";
 import { ActivityIndicator, Text, View } from "react-native";
 import Markdown from "react-native-marked";
-// import combos from "../../assets/data/combos.json";
-// import psychoactives from "../../assets/data/psychoactives.json";
-import { cachedPsychs, cachedCombos, cachedRisks } from "../../lib/fetchData";
+import { cachedCombos, cachedPsychs, cachedRisks } from "../../lib/fetchData";
 import { confidence, risk } from "../../lib/util";
 
 const App = () => {
