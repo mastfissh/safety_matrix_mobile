@@ -9,7 +9,7 @@ import {
 } from "react";
 import { ActivityIndicator, FlatList, Text, View } from "react-native";
 import { useMarkdown, type useMarkdownHookOptions } from "react-native-marked";
-import { cachedPsychs, cachedRisks } from "../../lib/fetchData";
+import { cachedPsychs } from "../../lib/fetchData";
 
 const App = () => {
   const [data, setData] = useState<any[]>([]);
@@ -30,12 +30,12 @@ const App = () => {
     fetchAndSetData();
   }, []);
   let str = "";
+  const { slug }: { slug: string } = useLocalSearchParams();
   if (!isLoading) {
     let idx = {} as any;
     for (let sub of data) {
       idx[sub["slug"]] = sub;
     }
-    const { slug }: { slug: string } = useLocalSearchParams();
     const record = idx[slug];
     const entry = record;
     let placeholder = "";
