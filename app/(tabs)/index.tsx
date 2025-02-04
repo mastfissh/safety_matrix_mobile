@@ -136,7 +136,7 @@ const App = () => {
             className="bg-fuchsia-600 p-2 rounded-lg"
             onPress={() => setModalVisible(false)}
           >
-            <Text className="text-white font-bold text-center">Hide Modal</Text>
+            <Text className="text-white font-bold text-center">Hide Picker</Text>
           </Pressable>
           {mainlist.map((item) => (
             <Fragment key={JSON.stringify(item)}>
@@ -156,7 +156,7 @@ const App = () => {
         className="bg-fuchsia-600 p-2 rounded-lg"
         onPress={() => setModalVisible(true)}
       >
-        <Text className="text-white font-bold text-center">Show Modal</Text>
+        <Text className="text-white font-bold text-center">Show Picker</Text>
       </Pressable>
       <SectionList
         sections={[

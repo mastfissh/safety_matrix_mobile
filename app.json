@@ -16,7 +16,10 @@
     "ios": {
       "userInterfaceStyle": "light",
       "supportsTablet": true,
-      "bundleIdentifier": "com.mastfish.psychcombo"
+      "bundleIdentifier": "com.mastfish.psychcombo",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      }
     },
     "android": {
       "userInterfaceStyle": "light",
@@ -35,9 +38,7 @@
       "expo-router",
       [
         "expo-build-properties",
-        {
-
-        }
+        {}
       ],
       [
         "expo-asset",
