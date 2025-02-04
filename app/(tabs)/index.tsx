@@ -12,7 +12,6 @@ import {
   View,
 } from "react-native";
 import { risk, risk_to_bg } from "../../lib/util";
-
 import { cachedPsychs, cachedRisks, gridState, saveGridState } from "../../lib/fetchData";
 
 const App = () => {
@@ -133,7 +132,7 @@ const App = () => {
       >
         <ScrollView className="p-4 rounded-lg bg-white shadow-md">
           <Pressable
-            className="bg-fuchsia-600 p-2 rounded-lg"
+            className="bg-fuchsia-400 p-2 rounded-lg"
             onPress={() => setModalVisible(false)}
           >
             <Text className="text-white font-bold text-center">Hide Picker</Text>
@@ -153,7 +152,7 @@ const App = () => {
         </ScrollView>
       </Modal>
       <Pressable
-        className="bg-fuchsia-600 p-2 rounded-lg"
+        className="bg-fuchsia-400 p-2 rounded-lg"
         onPress={() => setModalVisible(true)}
       >
         <Text className="text-white font-bold text-center">Show Picker</Text>
