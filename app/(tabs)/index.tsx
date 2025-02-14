@@ -133,7 +133,7 @@ const App = () => {
     );
   };
   return (
-    <View className="flex-1 items-center justify-center m-2">
+    <View className="flex-1 justify-center m-2">
       <Modal
         animationType="slide"
         transparent={false}
@@ -143,31 +143,36 @@ const App = () => {
           setModalVisible(!modalVisible);
         }}
       >
-        <ScrollView className="rounded-lg bg-white shadow-md">
+        <ScrollView className="rounded-lg bg-white shadow-md m-1 p-2">
           <Pressable
-            className="bg-fuchsia-400 rounded-lg"
+            className="bg-violet-400 rounded-lg text-xl p-2 m-2"
             onPress={() => setModalVisible(false)}
           >
             <Text className="text-white font-bold text-center">
               Hide Picker
             </Text>
           </Pressable>
-          {mainlist.map((item) => (
-            <Fragment key={JSON.stringify(item)}>
-              <Text>{JSON.stringify(item)}</Text>
-              <Switch
-                key={JSON.stringify(item)}
-                trackColor={{ false: "#767577", true: "#81b0ff" }}
-                ios_backgroundColor="#3e3e3e"
-                onValueChange={toggle(item)}
-                value={isChecked(item)}
-              />
-            </Fragment>
-          ))}
+          <View className="container">
+            <View className="flex flex-wrap justify-center flex-row">
+              {mainlist.map((item) => (
+                <View key={JSON.stringify(item)} className="w-24">
+                  <Text>{psychs[item]?.data?.title}</Text>
+                  <Switch
+                    key={JSON.stringify(item)}
+                    trackColor={{ false: "#767577", true: "#81b0ff" }}
+                    ios_backgroundColor="#3e3e3e"
+                    onValueChange={toggle(item)}
+                    value={isChecked(item)}
+                  />
+                </View>
+              ))}
+            </View>
+          </View>
         </ScrollView>
       </Modal>
+
       <Pressable
-        className="bg-fuchsia-400 p-2 m-2 rounded-lg"
+        className="bg-violet-400 p-2 m-2 rounded-lg"
         onPress={() => setModalVisible(true)}
       >
         <Text className="text-white font-bold text-center">Show Picker</Text>
@@ -197,44 +202,42 @@ const App = () => {
                     <Text
                       className={`${risk_to_bg(
                         "SR"
-                      )} text-m font-medium m-2 px-2.5 py-0.5 rounded w-36`}
+                      )} text-m font-medium m-2 px-2.5 py-0.5 rounded w-32`}
                     >
                       Significant Risk
                     </Text>
                     <Text
                       className={`${risk_to_bg(
                         "GR"
-                      )} text-m font-medium m-2 px-2.5 py-0.5 rounded w-36`}
+                      )} text-m font-medium m-2 px-2.5 py-0.5 rounded w-32`}
                     >
                       Greater Risk
                     </Text>
                     <Text
                       className={`${risk_to_bg(
                         "MR"
-                      )} text-m font-medium m-2 px-2.5 py-0.5 rounded w-36`}
+                      )} text-m font-medium m-2 px-2.5 py-0.5 rounded w-32`}
                     >
                       Minor Risk
                     </Text>
-                  </View>
-                  <View className="flex flex-wrap flex-row">
                     <Text
                       className={`${risk_to_bg(
                         "LRS"
-                      )} text-m font-medium m-2 px-2.5 py-0.5 rounded w-36`}
+                      )} text-m font-medium m-2 px-2.5 py-0.5 rounded w-32`}
                     >
                       Low Risk Synergy
                     </Text>
                     <Text
                       className={`${risk_to_bg(
                         "LRD"
-                      )} text-m font-medium m-2 px-2.5 py-0.5 rounded w-36`}
+                      )} text-m font-medium m-2 px-2.5 py-0.5 rounded w-32`}
                     >
                       Low Risk Decrease
                     </Text>
                     <Text
                       className={`${risk_to_bg(
                         "LRNS"
-                      )} text-m font-medium m-2 px-2.5 py-0.5 rounded w-36`}
+                      )} text-m font-medium m-2 px-2.5 py-0.5 rounded w-32`}
                     >
                       Low Risk No Synergy
                     </Text>
