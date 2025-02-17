@@ -7,17 +7,16 @@ import {
   Pressable,
   ScrollView,
   SectionList,
-  Switch,
   Text,
-  View,
+  View
 } from "react-native";
-import { risk, risk_to_bg } from "../../lib/util";
 import {
   cachedPsychs,
   cachedRisks,
   gridState,
   saveGridState,
 } from "../../lib/fetchData";
+import { risk, risk_to_bg } from "../../lib/util";
 
 const App = () => {
   const [mainlist, setMainlist] = useState<any[]>([]);
@@ -65,21 +64,18 @@ const App = () => {
     return currentState.checked_boxes[target];
   };
   const toggle = (target: string) => {
-    const toggle2 = (checked: any) => {
-      let checked_boxes = JSON.parse(
-        JSON.stringify(currentState.checked_boxes)
-      );
-      checked_boxes[target] = checked;
-      setState({ checked_boxes });
-      const saved = [];
-      for (const [key, val] of Object.entries(checked_boxes)) {
-        if (val) {
-          saved.push(key);
-        }
+
+    let checked_boxes = JSON.parse(JSON.stringify(currentState.checked_boxes));
+    const checked = isChecked(target);
+    checked_boxes[target] = !checked;
+    setState({ checked_boxes });
+    const saved = [];
+    for (const [key, val] of Object.entries(checked_boxes)) {
+      if (val) {
+        saved.push(key);
       }
-      saveGridState(saved);
-    };
-    return toggle2;
+    }
+    saveGridState(saved);
   };
   const chart = [""];
   for (const [key, val] of Object.entries(currentState.checked_boxes)) {
@@ -153,16 +149,14 @@ const App = () => {
           <View className="container">
             <View className="flex flex-wrap justify-center flex-row">
               {mainlist.map((item) => (
-                <View key={JSON.stringify(item)} className="w-24">
-                  <Text>{psychs[item]?.data?.title}</Text>
-                  <Switch
-                    key={JSON.stringify(item)}
-                    trackColor={{ false: "#767577", true: "#81b0ff" }}
-                    ios_backgroundColor="#3e3e3e"
-                    onValueChange={toggle(item)}
-                    value={isChecked(item)}
-                  />
-                </View>
+                <Fragment key={JSON.stringify(item)}>
+                  <Pressable onPressIn={() => toggle(item)}>
+                    <View key={JSON.stringify(item)} className="w-24">
+                      <Text>{psychs[item]?.data?.title}</Text>
+                      {isChecked(item) && <Text>checked</Text>}
+                    </View>
+                  </Pressable>
+                </Fragment>
               ))}
             </View>
           </View>

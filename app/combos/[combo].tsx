@@ -1,17 +1,17 @@
+import { ConfidencePanel } from "@/components/ConfidencePanel";
+import MarkdownList from "@/components/MarkDownList";
+import { RiskPanel } from "@/components/RiskPanel";
 import { useLocalSearchParams } from "expo-router";
 import React, { useEffect, useState } from "react";
 import {
   ActivityIndicator,
+  Image,
+  SectionList,
   Text,
   View,
-  SectionList,
-  Image,
 } from "react-native";
 import { cachedCombos, cachedPsychs, cachedRisks } from "../../lib/fetchData";
 import { confidence, risk } from "../../lib/util";
-import MarkdownList from "@/components/MarkDownList";
-import { ConfidencePanel } from "@/components/ConfidencePanel";
-import { RiskPanel } from "@/components/RiskPanel";
 
 const App = () => {
   const [idx, setIdx] = useState<{ [key: string]: any }>({});
