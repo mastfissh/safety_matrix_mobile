@@ -17,7 +17,6 @@ type Props = Omit<ComponentProps<typeof Link>, 'href'> & { conf: string };
 
 export function ConfidencePanel({conf}: Props) {
   const out= explainer[conf]
-  console.debug(conf)
   return (
     <Text>
       {out}

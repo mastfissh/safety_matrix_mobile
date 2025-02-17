@@ -1,9 +1,17 @@
 import { useLocalSearchParams } from "expo-router";
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator, Text, View, SectionList } from "react-native";
+import {
+  ActivityIndicator,
+  Text,
+  View,
+  SectionList,
+  Image,
+} from "react-native";
 import { cachedCombos, cachedPsychs, cachedRisks } from "../../lib/fetchData";
 import { confidence, risk } from "../../lib/util";
 import MarkdownList from "@/components/MarkDownList";
+import { ConfidencePanel } from "@/components/ConfidencePanel";
+import { RiskPanel } from "@/components/RiskPanel";
 
 const App = () => {
   const [idx, setIdx] = useState<{ [key: string]: any }>({});
@@ -41,23 +49,17 @@ const App = () => {
   const { combo }: { combo: string } = useLocalSearchParams();
   let [psych1_slug, psych2_slug] = combo.split("|");
   let str = "";
+  let psych1 = {} as any;
+  let psych2 = {} as any;
+  let conf = "";
+  let rsk = "";
   if (!isLoading) {
-    const psych1 = idx[psych1_slug];
-    const psych2 = idx[psych2_slug];
+    psych1 = idx[psych1_slug];
+    psych2 = idx[psych2_slug];
     const combo_data = comboIdx[`${psych1_slug}_${psych2_slug}`];
-    const conf = confidence([psych1_slug, psych2_slug], data);
-    const rsk = risk([psych1_slug, psych2_slug], data);
+    conf = confidence([psych1_slug, psych2_slug], data);
+    rsk = risk([psych1_slug, psych2_slug], data);
     str = `
-  ![${psych1.data.image_caption}](${
-      "i_" + (psych1_slug as string).replaceAll("-", "_")
-    })
-  *${psych1.data.image_caption}*
-  ![${psych2.data.image_caption}](${
-      "i_" + (psych2_slug as string).replaceAll("-", "_")
-    })
-  *${psych2.data.image_caption}*
-    Confidence ${conf}
-    Risk ${rsk}
     ${combo_data.body
       .replaceAll("import Chart from '../../components/chart.astro';", "")
       .replaceAll(
@@ -84,6 +86,34 @@ const App = () => {
   return (
     <SectionList
       sections={[
+        {
+          title: "",
+          data: ["" as any],
+          renderItem: ({}) => (
+            <View className="container">
+              <Text className="text-xl font-bold">{psych1.data.title}</Text>
+              <Image
+                source={{
+                  uri: "i_" + (psych1_slug as string).replaceAll("-", "_"),
+                }}
+                className="h-48 w-64 rounded-lg p-2"
+              ></Image>
+              <Text>{psych1.data.image_caption}</Text>
+
+              <Text className="text-xl font-bold">{psych2.data.title}</Text>
+              <Image
+                source={{
+                  uri: "i_" + (psych2_slug as string).replaceAll("-", "_"),
+                }}
+                className="h-48 w-64 rounded-lg p-2"
+              ></Image>
+
+              <Text>{psych2.data.image_caption}</Text>
+              <ConfidencePanel conf={conf} />
+              <RiskPanel risk={rsk} />
+            </View>
+          ),
+        },
         {
           title: "",
           data: ["" as any],
