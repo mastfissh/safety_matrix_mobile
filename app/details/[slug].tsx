@@ -1,13 +1,13 @@
 import { useLocalSearchParams } from "expo-router";
-import React,{
-  useCallback,
-  useEffect,
-  useState,
-  type ReactElement,
-  type ReactNode,
-} from "react";
-import { ActivityIndicator, FlatList, Text, View } from "react-native";
-import { useMarkdown, type useMarkdownHookOptions } from "react-native-marked";
+import React, { useEffect, useState } from "react";
+import {
+  ActivityIndicator,
+  Text,
+  View,
+  SectionList,
+  Image,
+} from "react-native";
+import MarkdownList from "@/components/MarkDownList";
 import { cachedPsychs } from "../../lib/fetchData";
 
 const App = () => {
@@ -30,58 +30,24 @@ const App = () => {
   }, []);
   let str = "";
   const { slug }: { slug: string } = useLocalSearchParams();
+  let entry = {} as any;
   if (!isLoading) {
     let idx = {} as any;
     for (let sub of data) {
       idx[sub["slug"]] = sub;
     }
     const record = idx[slug];
-    const entry = record;
-    let placeholder = "";
-    if (entry.data.family_members) {
-      placeholder = ` ${entry.data.title} is not just one drug; ${
-        entry.data.title
-      } is a
-              group of drugs. Drugs in this group include{" "}
-              ${entry.data.family_members.join(", ")}. Drugs within the same
-              group can have very different dosages and very different effects.`;
-    }
+    entry = record;
     str = `
-  ![${entry.data.image_caption}](${
-      "i_" + (slug as string).replaceAll("-", "_")
-    })
-  *${entry.data.image_caption}*
-
-    Details for ${record.data.title}
-    ${entry.data.title}
-    ${placeholder}
-    Effects 
-    ${entry.data.positive_effects}
-    ${entry.data.neutral_effects}
-    ${entry.data.negative_effects}
-    ${record.body
-      .replaceAll("import Chart from '../../components/chart.astro';", "")
-      .replaceAll(
-        "<Chart title={frontmatter.duration_chart_title} data={frontmatter.duration_chart} />",
-        ""
-      )}
+  ${record.body
+    .replaceAll("import Chart from '../../components/chart.astro';", "")
+    .replaceAll(
+      "<Chart title={frontmatter.duration_chart_title} data={frontmatter.duration_chart} />",
+      ""
+    )}
   `;
   }
 
-  const colorScheme = "light";
-  const options: useMarkdownHookOptions = {
-    colorScheme,
-  };
-  const rnElements = useMarkdown(str, options);
-
-  const renderItem = useCallback(({ item }: { item: ReactNode }) => {
-    return item as ReactElement;
-  }, []);
-
-  const keyExtractor = useCallback(
-    (_: ReactNode, index: number) => index.toString(),
-    []
-  );
   if (isLoading) {
     return (
       <View>
@@ -98,16 +64,48 @@ const App = () => {
     );
   }
   return (
-    <FlatList
-      removeClippedSubviews={false}
-      keyExtractor={keyExtractor}
-      maxToRenderPerBatch={8}
-      initialNumToRender={8}
-      style={{
-        backgroundColor: colorScheme === "light" ? "#ffffff" : "#000000",
-      }}
-      data={rnElements}
-      renderItem={renderItem}
+    <SectionList
+      sections={[
+        {
+          title: "",
+          data: ["" as any],
+          renderItem: ({}) => (
+            <View className="container">
+              <Text className="text-xl font-bold">{entry.data.title}</Text>
+              <Image
+                source={{
+                  uri: "i_" + (slug as string).replaceAll("-", "_"),
+                }}
+                className="h-48 w-64 rounded-lg p-2"
+              ></Image>
+
+              <Text>{entry.data.image_caption}</Text>
+              {entry.data.family_members && (
+                <Text>
+                  {entry.data.title} is not just one drug; {entry.data.title} is
+                  a group of drugs. Drugs in this group include{" "}
+                  {entry.data.family_members.join(", ")}. Drugs within the same
+                  group can have very different dosages and very different
+                  effects.
+                </Text>
+              )}
+              <Text>Effects</Text>
+              <Text>{entry.data.positive_effects}</Text>
+              <Text>{entry.data.neutral_effects}</Text>
+              <Text>{entry.data.negative_effects}</Text>
+            </View>
+          ),
+        },
+        {
+          title: "",
+          data: ["" as any],
+          renderItem: ({}) => <MarkdownList str={str} />,
+        },
+      ]}
+      renderSectionHeader={({ section: { title } }) => (
+        <Text className="text-lg font-bold">{title}</Text>
+      )}
+      keyExtractor={(item, index) => index.toString()}
     />
   );
 };

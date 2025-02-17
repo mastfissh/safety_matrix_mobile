@@ -1,9 +1,9 @@
 import { useLocalSearchParams } from "expo-router";
 import React, { useEffect, useState } from "react";
-import { ActivityIndicator, Text, View } from "react-native";
-import Markdown from "react-native-marked";
+import { ActivityIndicator, Text, View, SectionList } from "react-native";
 import { cachedCombos, cachedPsychs, cachedRisks } from "../../lib/fetchData";
 import { confidence, risk } from "../../lib/util";
+import MarkdownList from "@/components/MarkDownList";
 
 const App = () => {
   const [idx, setIdx] = useState<{ [key: string]: any }>({});
@@ -82,15 +82,15 @@ const App = () => {
     );
   }
   return (
-    <View className="flex-1 items-center justify-center">
-      <Markdown
-        value={str}
-        flatListProps={{
-          initialNumToRender: 8,
-          style: { width: "100%" },
-        }}
-      />
-    </View>
+    <SectionList
+      sections={[
+        {
+          title: "",
+          data: ["" as any],
+          renderItem: ({}) => <MarkdownList str={str} />,
+        },
+      ]}
+    />
   );
 };
 

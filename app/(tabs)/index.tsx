@@ -24,7 +24,6 @@ const App = () => {
   const [risks, setRisks] = useState<any[]>([]);
   const [psychs, setPsychs] = useState<{ [key: string]: any }>({});
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [currentState, setState] = useState<{
     checked_boxes: { [key: string]: boolean };
@@ -50,7 +49,6 @@ const App = () => {
         };
         setRisks(risks);
         setState(state);
-        console.debug("idx", idx);
         setPsychs(idx);
         setMainlist(mainlist);
         setIsLoading(false);
