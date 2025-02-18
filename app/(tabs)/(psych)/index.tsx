@@ -7,8 +7,8 @@ import {
   Text,
   View,
 } from "react-native";
-import { cachedPsychs, cachedRisks } from "../../../lib/fetchData";
-import { linkify } from "../../../lib/util";
+import { cachedPsychs, cachedRisks } from "@/lib/fetchData";
+import { linkify } from "@/lib/util";
 
 const preprocess = (data: any, data2: any) => {
   const psychoactives = data;

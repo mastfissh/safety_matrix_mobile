@@ -10,8 +10,8 @@ import {
   Text,
   View,
 } from "react-native";
-import { cachedCombos, cachedPsychs, cachedRisks } from "../../lib/fetchData";
-import { confidence, risk } from "../../lib/util";
+import { cachedCombos, cachedPsychs, cachedRisks } from "@/lib/fetchData";
+import { confidence, risk } from "@/lib/util";
 
 const App = () => {
   const [idx, setIdx] = useState<{ [key: string]: any }>({});

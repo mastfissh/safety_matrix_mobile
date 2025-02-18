@@ -1,6 +1,6 @@
-import psychoactivesFallback from "../assets/data/psychoactives.json";
-import risksFallback from "../assets/data/data.json";
-import combosFallback from "../assets/data/combos.json";
+import psychoactivesFallback from "@/assets/data/psychoactives.json";
+import risksFallback from "@/assets/data/data.json";
+import combosFallback from "@/assets/data/combos.json";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const fetchAndCache = async (url: string, key: string): Promise<string> => {

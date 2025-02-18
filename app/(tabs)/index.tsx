@@ -14,8 +14,8 @@ import {
   cachedRisks,
   gridState,
   saveGridState,
-} from "../../lib/fetchData";
-import { risk, risk_to_bg } from "../../lib/util";
+} from "@/lib/fetchData";
+import { risk, risk_to_bg } from "@/lib/util";
 
 const selectToBg = (selected: boolean) => {
   return selected ? "bg-violet-400" : "bg-slate-50";
