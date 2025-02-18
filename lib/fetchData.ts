@@ -10,7 +10,10 @@ const fetchAndCache = async (url: string, key: string): Promise<string> => {
   return data;
 };
 
-const fetchFromCache = async (key: string, fallback:string): Promise<string> => {
+const fetchFromCache = async (
+  key: string,
+  fallback: string
+): Promise<string> => {
   const cache = await AsyncStorage.getItem(key);
   if (cache) {
     return cache;
@@ -22,7 +25,10 @@ const fetchFromCache = async (key: string, fallback:string): Promise<string> => 
 export const cachedPsychs = async (): Promise<any> => {
   const API_URL = "https://psychcombo.com/psychoactives.json";
   const network = fetchAndCache(API_URL, "psychoactives");
-  const fallback = fetchFromCache("psychoactives", JSON.stringify(psychoactivesFallback));
+  const fallback = fetchFromCache(
+    "psychoactives",
+    JSON.stringify(psychoactivesFallback)
+  );
   const result = await Promise.race([network, fallback]);
   return JSON.parse(result);
 };
@@ -44,9 +50,12 @@ export const cachedCombos = async (): Promise<any> => {
 };
 
 export const gridState = async (): Promise<any> => {
-  return fetchFromCache("chosenPsychs", JSON.stringify(["alcohol", "cannabis", "cocaine", "ketamine"]));
+  return fetchFromCache(
+    "chosenPsychs",
+    JSON.stringify(["alcohol", "cannabis", "cocaine", "ketamine"])
+  );
 };
 
 export const saveGridState = async (state: any): Promise<void> => {
   AsyncStorage.setItem("chosenPsychs", JSON.stringify(state));
-}
+};

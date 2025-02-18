@@ -1,8 +1,8 @@
-import { Link } from 'expo-router';
-import { type ComponentProps } from 'react';
-import { Text} from 'react-native';
+import { Link } from "expo-router";
+import { type ComponentProps } from "react";
+import { Text } from "react-native";
 
-let explainer: {[index: string]:any} = {}
+let explainer: { [index: string]: any } = {};
 explainer = {
   SR: "Significant risk: Danger! This is our most dangerous combination rating.",
   GR: "Greater risk: Careful... This combination has a fair chance of harm.",
@@ -12,14 +12,9 @@ explainer = {
   LRNS: "Low risk no synergy: This combination won't do much more than the individual effects of the psychoactives involved.",
 };
 
-type Props = Omit<ComponentProps<typeof Link>, 'href'> & { risk: string };
+type Props = Omit<ComponentProps<typeof Link>, "href"> & { risk: string };
 
-export function RiskPanel({risk}: Props) {
-  const out= explainer[risk]
-  return (
-    <Text>
-      {out}
-    </Text>
-      
-  );
+export function RiskPanel({ risk }: Props) {
+  const out = explainer[risk];
+  return <Text>{out}</Text>;
 }
