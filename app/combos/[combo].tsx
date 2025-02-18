@@ -90,27 +90,36 @@ const App = () => {
           title: "",
           data: ["" as any],
           renderItem: ({}) => (
-            <View className="container">
-              <Text className="text-xl font-bold">{psych1.data.title}</Text>
-              <Image
-                source={{
-                  uri: "i_" + (psych1_slug as string).replaceAll("-", "_"),
-                }}
-                className="h-48 w-64 rounded-lg p-2"
-              ></Image>
-              <Text>{psych1.data.image_caption}</Text>
+            <View className="container flex flex-wrap flex-row items-center">
+              <View className="m-4">
+                <Text className="text-xl font-bold">{psych1.data.title}</Text>
+                <Image
+                  source={{
+                    uri: "i_" + (psych1_slug as string).replaceAll("-", "_"),
+                  }}
+                  className="h-36 w-48 rounded-lg p-2"
+                ></Image>
+                <Text className="text-8 w-48 italic">
+                  {psych1.data.image_caption}
+                </Text>
+              </View>
+              <View>
+                <Text className="text-xl font-bold">{psych2.data.title}</Text>
+                <Image
+                  source={{
+                    uri: "i_" + (psych2_slug as string).replaceAll("-", "_"),
+                  }}
+                  className="h-36 w-48 rounded-lg p-2"
+                ></Image>
 
-              <Text className="text-xl font-bold">{psych2.data.title}</Text>
-              <Image
-                source={{
-                  uri: "i_" + (psych2_slug as string).replaceAll("-", "_"),
-                }}
-                className="h-48 w-64 rounded-lg p-2"
-              ></Image>
-
-              <Text>{psych2.data.image_caption}</Text>
-              <ConfidencePanel conf={conf} />
-              <RiskPanel risk={rsk} />
+                <Text className="text-8 w-48 italic">
+                  {psych2.data.image_caption}
+                </Text>
+              </View>
+              <View className="m-4">
+                <ConfidencePanel conf={conf} />
+                <RiskPanel risk={rsk} />
+              </View>
             </View>
           ),
         },

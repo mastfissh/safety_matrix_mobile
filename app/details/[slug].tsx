@@ -1,5 +1,6 @@
 import { useLocalSearchParams } from "expo-router";
 import React, { useEffect, useState } from "react";
+import AntDesign from '@expo/vector-icons/AntDesign';
 import {
   ActivityIndicator,
   Text,
@@ -8,7 +9,7 @@ import {
   Image,
 } from "react-native";
 import MarkdownList from "@/components/MarkDownList";
-import { cachedPsychs } from "../../lib/fetchData";
+import { cachedPsychs } from "@/lib/fetchData";
 
 const App = () => {
   const [data, setData] = useState<any[]>([]);
@@ -71,28 +72,34 @@ const App = () => {
           data: ["" as any],
           renderItem: ({}) => (
             <View className="container">
-              <Text className="text-xl font-bold">{entry.data.title}</Text>
-              <Image
-                source={{
-                  uri: "i_" + (slug as string).replaceAll("-", "_"),
-                }}
-                className="h-48 w-64 rounded-lg p-2"
-              ></Image>
+              <View className="p-2">
+                <Text className="text-xl font-bold">{entry.data.title}</Text>
+                <Image
+                  source={{
+                    uri: "i_" + (slug as string).replaceAll("-", "_"),
+                  }}
+                  className="h-48 rounded-lg p-2"
+                ></Image>
 
-              <Text>{entry.data.image_caption}</Text>
-              {entry.data.family_members && (
-                <Text>
-                  {entry.data.title} is not just one drug; {entry.data.title} is
-                  a group of drugs. Drugs in this group include{" "}
-                  {entry.data.family_members.join(", ")}. Drugs within the same
-                  group can have very different dosages and very different
-                  effects.
+                <Text className="text-8 italic">
+                  {entry.data.image_caption}
                 </Text>
-              )}
-              <Text>Effects</Text>
-              <Text>{entry.data.positive_effects}</Text>
-              <Text>{entry.data.neutral_effects}</Text>
-              <Text>{entry.data.negative_effects}</Text>
+              </View>
+              <View className="p-2">
+                {entry.data.family_members && (
+                  <Text>
+                    {entry.data.title} is not just one drug; {entry.data.title}{" "}
+                    is a group of drugs. Drugs in this group include{" "}
+                    {entry.data.family_members.join(", ")}. Drugs within the
+                    same group can have very different dosages and very
+                    different effects.
+                  </Text>
+                )}
+                <Text className="text-bold text-xl">Effects:</Text>
+                <Text><AntDesign name="up" size={24} color="black" />{entry.data.positive_effects}</Text>
+                <Text><AntDesign name="down" size={24} color="black" />{entry.data.neutral_effects}</Text>
+                <Text><AntDesign name="exclamationcircle" size={24} color="black" />{entry.data.negative_effects}</Text>
+              </View>
             </View>
           ),
         },

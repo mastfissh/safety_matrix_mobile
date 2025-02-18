@@ -19,17 +19,19 @@ const MarkdownList = ({ str }: { str: string }) => {
   );
 
   return (
-    <FlatList
-      removeClippedSubviews={false}
-      keyExtractor={keyExtractor}
-      maxToRenderPerBatch={8}
-      initialNumToRender={8}
-      style={{
-        backgroundColor: colorScheme === "light" ? "#ffffff" : "#000000",
-      }}
-      data={rnElements}
-      renderItem={renderItem}
-    />
+    <View className="m-2">
+      <FlatList
+        removeClippedSubviews={false}
+        keyExtractor={keyExtractor}
+        maxToRenderPerBatch={8}
+        initialNumToRender={8}
+        style={{
+          backgroundColor: colorScheme === "light" ? "#ffffff" : "#000000",
+        }}
+        data={rnElements}
+        renderItem={renderItem}
+      />
+    </View>
   );
 };
 
