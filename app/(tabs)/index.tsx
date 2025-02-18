@@ -18,7 +18,11 @@ import {
 import { risk, risk_to_bg } from "@/lib/util";
 
 const selectToBg = (selected: boolean) => {
-  return selected ? "bg-violet-400" : "bg-slate-50";
+  return selected ? " bg-indigo-500 " : " bg-slate-50 ";
+};
+
+const selectToText = (selected: boolean) => {
+  return selected ? " color-white " : " color-black ";
 };
 
 const App = () => {
@@ -160,8 +164,8 @@ const App = () => {
                     onPressIn={() => toggle(item)}
                     unstable_pressDelay={50}
                   >
-                    <View className={"w-24 " + selectToBg(isChecked(item))}>
-                      <Text>{psychs[item]?.data?.title}</Text>
+                    <View className={"w-36 h-12 m-1 rounded-lg p-1 border-solid border-2 border-slate-200" + selectToBg(isChecked(item))}>
+                      <Text  className={" " + selectToText(isChecked(item))}>{psychs[item]?.data?.title}</Text>
                     </View>
                   </Pressable>
                 )}
