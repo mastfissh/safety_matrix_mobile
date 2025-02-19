@@ -4,9 +4,18 @@ import combosFallback from "@/assets/data/combos.json";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const fetchAndCache = async (url: string, key: string): Promise<string> => {
+  const hash = await getHash();
+  const savedHash = await AsyncStorage.getItem(key + "_hash");
+  const out = await AsyncStorage.getItem(key);
+  if (savedHash === hash[key]) {
+    if (out) {
+      return out;
+    }
+  }
   const response = await fetch(url);
   const data = await response.text();
-  AsyncStorage.setItem(key, data);
+  await AsyncStorage.setItem(key, data);
+  await AsyncStorage.setItem(key + "_hash", hash[key]);
   return data;
 };
 
@@ -20,6 +29,12 @@ const fetchFromCache = async (
   } else {
     return fallback;
   }
+};
+
+const getHash = async (): Promise<any> => {
+  const response = await fetch("https://psychcombo.com/hash.json");
+  const data = await response.json();
+  return data;
 };
 
 export const cachedPsychs = async (): Promise<any> => {
