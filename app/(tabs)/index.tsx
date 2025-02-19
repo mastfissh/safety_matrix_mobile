@@ -77,6 +77,11 @@ const App = () => {
         [target]: !prev.checked_boxes[target],
       },
     }));
+  };
+  useEffect(() => {
+    if (isLoading) {
+      return;
+    }
     const saved = [];
     for (const [key, val] of Object.entries(currentState.checked_boxes)) {
       if (val) {
@@ -84,7 +89,7 @@ const App = () => {
       }
     }
     saveGridState(saved);
-  };
+  }, [currentState]);
   const chart = [""];
   for (const [key, val] of Object.entries(currentState.checked_boxes)) {
     if (val) {
@@ -134,6 +139,7 @@ const App = () => {
       </View>
     );
   };
+
   return (
     <View className="flex-1 justify-center m-2">
       <Modal
@@ -164,8 +170,15 @@ const App = () => {
                     onPressIn={() => toggle(item)}
                     unstable_pressDelay={50}
                   >
-                    <View className={"w-36 h-12 m-1 rounded-lg p-1 border-solid border-2 border-slate-200" + selectToBg(isChecked(item))}>
-                      <Text  className={" " + selectToText(isChecked(item))}>{psychs[item]?.data?.title}</Text>
+                    <View
+                      className={
+                        "w-36 h-12 m-1 rounded-lg p-1 border-solid border-2 border-slate-200" +
+                        selectToBg(isChecked(item))
+                      }
+                    >
+                      <Text className={" " + selectToText(isChecked(item))}>
+                        {psychs[item]?.data?.title}
+                      </Text>
                     </View>
                   </Pressable>
                 )}

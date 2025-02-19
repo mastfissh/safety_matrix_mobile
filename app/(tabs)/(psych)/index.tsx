@@ -61,30 +61,21 @@ const App = () => {
     );
   }
   return (
-    <View className="flex-1">
+    <View className="flex flex-wrap justify-center flex-row">
       <FlatList
         data={data}
         renderItem={({ item }) => (
-          <View className="p-2">
-            <Link
-              href={{
-                pathname: "/details/[slug]",
-                params: { slug: item.slug },
-              }}
-              className="flex-1 flex flex-col"
-            >
-              <ImageBackground
-                source={{
-                  uri: "i_" + (item.slug as string).replaceAll("-", "_"),
-                }}
-                className="w-full h-full rounded-lg p-2 flex-grow"
-              >
-                <Text className="bg-opacity-0"> {item.data.title}</Text>
-              </ImageBackground>
-            </Link>
-          </View>
+          <Link
+            href={{
+              pathname: "/details/[slug]",
+              params: { slug: item.slug },
+            }}
+          >
+            <View className="p-2 w-36 h-12 m-1 rounded-lg p-1 border-solid border-2 border-slate-200">
+              <Text className="bg-opacity-1"> {item.data.title}</Text>
+            </View>
+          </Link>
         )}
-        className="grid grid-cols-3"
         numColumns={3}
       />
     </View>

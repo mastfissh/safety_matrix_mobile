@@ -96,9 +96,9 @@ const App = () => {
                   </Text>
                 )}
                 <Text className="text-bold text-xl">Effects:</Text>
-                <Text><AntDesign name="up" size={24} color="black" />{entry.data.positive_effects}</Text>
-                <Text><AntDesign name="down" size={24} color="black" />{entry.data.neutral_effects}</Text>
-                <Text><AntDesign name="exclamationcircle" size={24} color="black" />{entry.data.negative_effects}</Text>
+                <Text><AntDesign name="up" size={14} color="green" /> {entry.data.positive_effects}</Text>
+                <Text><AntDesign name="down" size={14} color="red" /> {entry.data.neutral_effects}</Text>
+                <Text><AntDesign name="exclamationcircle" size={14} color="grey" /> {entry.data.negative_effects}</Text>
               </View>
             </View>
           ),

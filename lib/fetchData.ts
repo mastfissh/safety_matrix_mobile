@@ -57,5 +57,5 @@ export const gridState = async (): Promise<any> => {
 };
 
 export const saveGridState = async (state: any): Promise<void> => {
-  AsyncStorage.setItem("chosenPsychs", JSON.stringify(state));
+  return AsyncStorage.setItem("chosenPsychs", JSON.stringify(state));
 };
