@@ -12,6 +12,7 @@ import {
 } from "react-native";
 import { cachedCombos, cachedPsychs, cachedRisks } from "@/lib/fetchData";
 import { confidence, risk } from "@/lib/util";
+import Disclaimer from "@/components/Disclaimer";
 
 const App = () => {
   const [idx, setIdx] = useState<{ [key: string]: any }>({});
@@ -60,11 +61,11 @@ const App = () => {
     conf = confidence([psych1_slug, psych2_slug], data);
     rsk = risk([psych1_slug, psych2_slug], data);
     let md = combo_data.body
-    .replaceAll("import Chart from '../../components/chart.astro';", " \n ")
-    .replaceAll(
-      "<Chart title={frontmatter.duration_chart_title} data={frontmatter.duration_chart} />",
-      " \n "
-    )
+      .replaceAll("import Chart from '../../components/chart.astro';", " \n ")
+      .replaceAll(
+        "<Chart title={frontmatter.duration_chart_title} data={frontmatter.duration_chart} />",
+        " \n "
+      );
     str = `${md}`;
   }
   if (isLoading) {
@@ -126,6 +127,11 @@ const App = () => {
           title: "",
           data: ["" as any],
           renderItem: ({}) => <MarkdownList str={str} />,
+        },
+        {
+          title: "",
+          data: ["" as any],
+          renderItem: ({}) => <Disclaimer />,
         },
       ]}
     />

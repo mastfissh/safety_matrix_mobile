@@ -9,6 +9,7 @@ import {
   Image,
 } from "react-native";
 import MarkdownList from "@/components/MarkDownList";
+import Disclaimer from "@/components/Disclaimer";
 import { cachedPsychs } from "@/lib/fetchData";
 
 const App = () => {
@@ -107,6 +108,11 @@ const App = () => {
           title: "",
           data: ["" as any],
           renderItem: ({}) => <MarkdownList str={str} />,
+        },
+        {
+          title: "",
+          data: ["" as any],
+          renderItem: ({}) => <Disclaimer />,
         },
       ]}
       renderSectionHeader={({ section: { title } }) => (

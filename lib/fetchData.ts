@@ -2,75 +2,66 @@ import psychoactivesFallback from "@/assets/data/psychoactives.json";
 import risksFallback from "@/assets/data/data.json";
 import combosFallback from "@/assets/data/combos.json";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as Application from "expo-application";
 
-const fetchAndCache = async (url: string, key: string): Promise<string> => {
+const API_BASE_URL = "https://psychcombo.com";
+
+function versioned(key: string): string {
+  const versionId = Application.nativeBuildVersion;
+  const month = new Date().getMonth();
+  return `${key}_${versionId}_${month}_hash`;
+}
+
+async function getHash(): Promise<any> {
+  const response = await fetch(`${API_BASE_URL}/hash.json`);
+  return response.json();
+}
+
+async function fetchAndCache(url: string, key: string): Promise<string> {
   const hash = await getHash();
-  const savedHash = await AsyncStorage.getItem(key + "_hash");
-  const out = await AsyncStorage.getItem(key);
-  if (savedHash === hash[key]) {
-    if (out) {
-      return out;
-    }
+  const savedHash = await AsyncStorage.getItem(versioned(key));
+  const cachedData = await AsyncStorage.getItem(key);
+
+  if (savedHash === hash[key] && cachedData) {
+    return cachedData;
   }
+
   const response = await fetch(url);
   const data = await response.text();
   await AsyncStorage.setItem(key, data);
-  await AsyncStorage.setItem(key + "_hash", hash[key]);
+  await AsyncStorage.setItem(versioned(key), hash[key]);
   return data;
-};
+}
 
-const fetchFromCache = async (
+async function fetchFromCache(key: string, fallback: string): Promise<string> {
+  return (await AsyncStorage.getItem(key)) || fallback;
+}
+
+async function cachedData(
+  endpoint: string,
   key: string,
-  fallback: string
-): Promise<string> => {
-  const cache = await AsyncStorage.getItem(key);
-  if (cache) {
-    return cache;
-  } else {
-    return fallback;
-  }
-};
-
-const getHash = async (): Promise<any> => {
-  const response = await fetch("https://psychcombo.com/hash.json");
-  const data = await response.json();
-  return data;
-};
-
-export const cachedPsychs = async (): Promise<any> => {
-  const API_URL = "https://psychcombo.com/psychoactives.json";
-  const network = fetchAndCache(API_URL, "psychoactives");
-  const fallback = fetchFromCache(
-    "psychoactives",
-    JSON.stringify(psychoactivesFallback)
-  );
-  const result = await Promise.race([network, fallback]);
+  fallbackData: any
+): Promise<any> {
+  const API_URL = `${API_BASE_URL}/${endpoint}.json`;
+  const network = fetchAndCache(API_URL, key);
+  const fallback = fetchFromCache(key, JSON.stringify(fallbackData));
+  const result = await fallback;
   return JSON.parse(result);
-};
+}
 
-export const cachedRisks = async (): Promise<any> => {
-  const API_URL = "https://psychcombo.com/data.json";
-  const network = fetchAndCache(API_URL, "risks");
-  const fallback = fetchFromCache("risks", JSON.stringify(risksFallback));
-  const result = await Promise.race([network, fallback]);
-  return JSON.parse(result);
-};
+export const cachedPsychs = () =>
+  cachedData("psychoactives", "psychoactives", psychoactivesFallback);
+export const cachedRisks = () => cachedData("risks", "risks", risksFallback);
+export const cachedCombos = () =>
+  cachedData("combos", "combos", combosFallback);
 
-export const cachedCombos = async (): Promise<any> => {
-  const API_URL = "https://psychcombo.com/combos.json";
-  const network = fetchAndCache(API_URL, "combos");
-  const fallback = fetchFromCache("combos", JSON.stringify(combosFallback));
-  const result = await Promise.race([network, fallback]);
-  return JSON.parse(result);
-};
-
-export const gridState = async (): Promise<any> => {
+export async function gridState(): Promise<any> {
   return fetchFromCache(
     "chosenPsychs",
     JSON.stringify(["alcohol", "cannabis", "cocaine", "ketamine"])
   );
-};
+}
 
-export const saveGridState = async (state: any): Promise<void> => {
+export async function saveGridState(state: any): Promise<void> {
   return AsyncStorage.setItem("chosenPsychs", JSON.stringify(state));
-};
+}

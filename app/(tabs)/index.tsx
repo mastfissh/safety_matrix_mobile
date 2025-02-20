@@ -16,6 +16,7 @@ import {
   saveGridState,
 } from "@/lib/fetchData";
 import { risk, risk_to_bg } from "@/lib/util";
+import Disclaimer from "@/components/Disclaimer";
 
 const selectToBg = (selected: boolean) => {
   return selected ? " bg-indigo-500 " : " bg-slate-50 ";
@@ -301,6 +302,7 @@ const App = () => {
                       </Text>
                     </View>
                   </View>
+                  <Disclaimer />
                 </Fragment>
               ),
             },
