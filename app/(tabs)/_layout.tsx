@@ -1,8 +1,10 @@
 import Entypo from "@expo/vector-icons/Entypo";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import { Tabs } from "expo-router";
+import {Platform, StyleSheet, Text, ScrollView} from 'react-native';
 
 export default function TabLayout() {
+  const headerShown  = Platform.OS === "android" ? false : true;
   return (
     <Tabs screenOptions={{ tabBarActiveTintColor: "blue" }}>
       <Tabs.Screen
@@ -10,7 +12,7 @@ export default function TabLayout() {
         options={{
           title: "Grid",
           tabBarIcon: () => <Entypo name="grid" size={24} color="black" />,
-          headerShown: false,
+          headerShown: headerShown,
         }}
       />
       <Tabs.Screen
@@ -20,7 +22,7 @@ export default function TabLayout() {
           tabBarIcon: () => (
             <FontAwesome5 name="book-medical" size={24} color="black" />
           ),
-          headerShown: false,
+          headerShown: headerShown,
         }}
       />
     </Tabs>
