@@ -8,6 +8,7 @@ import {
   SectionList,
   Text,
   View,
+  Platform,
 } from "react-native";
 import {
   cachedPsychs,
@@ -27,6 +28,7 @@ const selectToText = (selected: boolean) => {
 };
 
 const App = () => {
+  const iosClass  = Platform.OS === "android" ? "" : " mt-12 ";
   const [mainlist, setMainlist] = useState<any[]>([]);
   const [risks, setRisks] = useState<any[]>([]);
   const [psychs, setPsychs] = useState<{ [key: string]: any }>({});
@@ -147,12 +149,12 @@ const App = () => {
         animationType="slide"
         transparent={false}
         visible={modalVisible}
-        className="modalView m-5 bg-white rounded-lg p-9 flex items-center shadow-lg shadow-black/25"
+        className={`modalView m-5 bg-white rounded-lg p-9 flex items-center shadow-lg shadow-black/25 `}
         onRequestClose={() => {
           setModalVisible(!modalVisible);
         }}
       >
-        <View className="rounded-lg bg-white shadow-md m-1 p-2">
+        <View className={`rounded-lg bg-white shadow-md m-1 p-2 ${iosClass}`}>
           <Pressable
             className="bg-violet-400 rounded-lg text-xl p-2 m-2"
             onPress={() => setModalVisible(false)}
