@@ -1,14 +1,13 @@
+import { cachedPsychs, cachedRisks } from "@/lib/fetchData";
+import { linkify } from "@/lib/util";
 import { Link } from "expo-router";
 import React, { useEffect, useState } from "react";
 import {
   ActivityIndicator,
   FlatList,
-  ImageBackground,
   Text,
-  View,
+  View
 } from "react-native";
-import { cachedPsychs, cachedRisks } from "@/lib/fetchData";
-import { linkify } from "@/lib/util";
 
 const preprocess = (data: any, data2: any) => {
   const psychoactives = data;

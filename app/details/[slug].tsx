@@ -1,18 +1,22 @@
-import { useLocalSearchParams } from "expo-router";
+import Disclaimer from "@/components/Disclaimer";
+import MarkdownList from "@/components/MarkDownList";
+import { cachedPsychs } from "@/lib/fetchData";
+import AntDesign from "@expo/vector-icons/AntDesign";
+import { useLocalSearchParams, useNavigation } from "expo-router";
 import React, { useEffect, useState } from "react";
-import AntDesign from '@expo/vector-icons/AntDesign';
 import {
   ActivityIndicator,
+  Image,
+  SectionList,
   Text,
   View,
-  SectionList,
-  Image,
 } from "react-native";
-import MarkdownList from "@/components/MarkDownList";
-import Disclaimer from "@/components/Disclaimer";
-import { cachedPsychs } from "@/lib/fetchData";
 
 const App = () => {
+  const navigation = useNavigation();
+  useEffect(() => {
+    navigation.setOptions({ title: "Details" });
+  }, [navigation]);
   const [data, setData] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -97,9 +101,18 @@ const App = () => {
                   </Text>
                 )}
                 <Text className="text-bold text-xl">Effects:</Text>
-                <Text><AntDesign name="up" size={14} color="green" /> {entry.data.positive_effects}</Text>
-                <Text><AntDesign name="down" size={14} color="red" /> {entry.data.neutral_effects}</Text>
-                <Text><AntDesign name="exclamationcircle" size={14} color="grey" /> {entry.data.negative_effects}</Text>
+                <Text>
+                  <AntDesign name="up" size={14} color="green" />{" "}
+                  {entry.data.positive_effects}
+                </Text>
+                <Text>
+                  <AntDesign name="down" size={14} color="red" />{" "}
+                  {entry.data.neutral_effects}
+                </Text>
+                <Text>
+                  <AntDesign name="exclamationcircle" size={14} color="grey" />{" "}
+                  {entry.data.negative_effects}
+                </Text>
               </View>
             </View>
           ),

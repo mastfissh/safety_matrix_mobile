@@ -1,15 +1,4 @@
-import AntDesign from "@expo/vector-icons/AntDesign";
-import { Link } from "expo-router";
-import React, { Fragment, useEffect, useState } from "react";
-import {
-  FlatList,
-  Modal,
-  Pressable,
-  SectionList,
-  Text,
-  View,
-  Platform,
-} from "react-native";
+import Disclaimer from "@/components/Disclaimer";
 import {
   cachedPsychs,
   cachedRisks,
@@ -17,7 +6,18 @@ import {
   saveGridState,
 } from "@/lib/fetchData";
 import { risk, risk_to_bg } from "@/lib/util";
-import Disclaimer from "@/components/Disclaimer";
+import AntDesign from "@expo/vector-icons/AntDesign";
+import { Link } from "expo-router";
+import React, { Fragment, useEffect, useState } from "react";
+import {
+  FlatList,
+  Modal,
+  Platform,
+  Pressable,
+  SectionList,
+  Text,
+  View,
+} from "react-native";
 
 const selectToBg = (selected: boolean) => {
   return selected ? " bg-indigo-500 " : " bg-slate-50 ";
@@ -28,7 +28,7 @@ const selectToText = (selected: boolean) => {
 };
 
 const App = () => {
-  const iosClass  = Platform.OS === "android" ? "" : " mt-12 ";
+  const iosClass = Platform.OS === "android" ? "" : " mt-12 ";
   const [mainlist, setMainlist] = useState<any[]>([]);
   const [risks, setRisks] = useState<any[]>([]);
   const [psychs, setPsychs] = useState<{ [key: string]: any }>({});

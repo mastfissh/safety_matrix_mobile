@@ -1,6 +1,6 @@
-import psychoactivesFallback from "@/assets/data/psychoactives.json";
-import risksFallback from "@/assets/data/data.json";
 import combosFallback from "@/assets/data/combos.json";
+import risksFallback from "@/assets/data/data.json";
+import psychoactivesFallback from "@/assets/data/psychoactives.json";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Application from "expo-application";
 

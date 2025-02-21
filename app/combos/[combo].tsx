@@ -1,7 +1,10 @@
 import { ConfidencePanel } from "@/components/ConfidencePanel";
+import Disclaimer from "@/components/Disclaimer";
 import MarkdownList from "@/components/MarkDownList";
 import { RiskPanel } from "@/components/RiskPanel";
-import { useLocalSearchParams } from "expo-router";
+import { cachedCombos, cachedPsychs, cachedRisks } from "@/lib/fetchData";
+import { confidence, risk } from "@/lib/util";
+import { useLocalSearchParams, useNavigation } from "expo-router";
 import React, { useEffect, useState } from "react";
 import {
   ActivityIndicator,
@@ -10,11 +13,12 @@ import {
   Text,
   View,
 } from "react-native";
-import { cachedCombos, cachedPsychs, cachedRisks } from "@/lib/fetchData";
-import { confidence, risk } from "@/lib/util";
-import Disclaimer from "@/components/Disclaimer";
 
 const App = () => {
+  const navigation = useNavigation();
+  useEffect(() => {
+    navigation.setOptions({ title: "Details" });
+  }, [navigation]);
   const [idx, setIdx] = useState<{ [key: string]: any }>({});
   const [comboIdx, setComboIdx] = useState<{ [key: string]: any }>({});
   const [data, setData] = useState<any[]>([]);

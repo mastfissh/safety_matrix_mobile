@@ -1,5 +1,5 @@
-import React from 'react';
-import { View, Text } from 'react-native';
+import React from "react";
+import { Text, View } from "react-native";
 
 const Disclaimer = () => {
   return (
@@ -15,8 +15,8 @@ const Disclaimer = () => {
         should be treated with caution and respect.
       </Text>
       <Text className="mb-4 text-base text-neutral-600">
-        We promote psychoactive science and do not endorse illegal activity. We are
-        fully compliant with NSW and federal Australian law.
+        We promote psychoactive science and do not endorse illegal activity. We
+        are fully compliant with NSW and federal Australian law.
       </Text>
     </View>
   );

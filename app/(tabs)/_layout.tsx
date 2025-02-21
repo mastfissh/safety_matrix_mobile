@@ -1,7 +1,7 @@
 import Entypo from "@expo/vector-icons/Entypo";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import { Tabs } from "expo-router";
-import {Platform, StyleSheet, Text, ScrollView} from 'react-native';
+import { Platform } from 'react-native';
 
 export default function TabLayout() {
   const headerShown  = Platform.OS === "android" ? false : true;
