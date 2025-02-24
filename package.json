@@ -44,7 +44,9 @@
     "react-native-screens": "~4.4.0",
     "react-native-web": "~0.19.13",
     "react-native-webview": "13.12.5",
-    "expo-application": "~6.0.2"
+    "expo-application": "~6.0.2",
+    "expo-device": "~7.0.2",
+    "expo-screen-orientation": "~8.0.4"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
