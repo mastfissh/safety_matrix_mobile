@@ -70,6 +70,12 @@
         "projectId": "ec3bb2ae-1dda-4647-947e-f0c9485c7acf"
       }
     },
-    "owner": "mastfish-org"
+    "owner": "mastfish-org",
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/ec3bb2ae-1dda-4647-947e-f0c9485c7acf"
+    }
   }
 }
