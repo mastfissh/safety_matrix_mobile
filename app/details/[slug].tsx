@@ -55,6 +55,8 @@ const App = () => {
       ""
     )}
   `;
+  // App store policies don't allow for showing dosage information.
+  // We'll just strip this entire section for now
     if (ios) {
       str = ''
     }
