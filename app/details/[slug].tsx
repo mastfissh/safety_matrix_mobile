@@ -10,9 +10,11 @@ import {
   SectionList,
   Text,
   View,
+  Platform
 } from "react-native";
 
 const App = () => {
+  const ios = Platform.OS !== "android";
   const navigation = useNavigation();
   useEffect(() => {
     navigation.setOptions({ title: "Details" });
@@ -44,6 +46,7 @@ const App = () => {
     }
     const record = idx[slug];
     entry = record;
+
     str = `
   ${record.body
     .replaceAll("import Chart from '../../components/chart.astro';", "")
@@ -52,6 +55,9 @@ const App = () => {
       ""
     )}
   `;
+    if (ios) {
+      str = ''
+    }
   }
 
   if (isLoading) {
