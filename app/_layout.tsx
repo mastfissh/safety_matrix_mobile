@@ -20,19 +20,7 @@ export default function Layout() {
   useEffect(() => {
     unlockOrientationForTablets();
   }, []);
-  // useEffect(() => {
-  //   const subscription = ScreenOrientation.addOrientationChangeListener(
-  //     // handleOrientationChange
-  //   );
-  //   return () => {
-  //     ScreenOrientation.removeOrientationChangeListeners();
-  //   };
-  // }, []);
-  
-  // const handleOrientationChange = (orientationChange) => {
-  //   const currentOrientation = orientationChange.orientationInfo.orientation;
-  //   // Adjust your layout based on the currentOrientation
-  // };
+
   
   
   return (
