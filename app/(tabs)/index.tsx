@@ -17,6 +17,7 @@ import {
   SectionList,
   Text,
   View,
+  ScrollView,
 } from "react-native";
 
 const selectToBg = (selected: boolean) => {
@@ -144,178 +145,258 @@ const App = () => {
   };
 
   return (
-    <View className="flex-1 justify-center m-2">
-      <Modal
-        animationType="slide"
-        transparent={false}
-        visible={modalVisible}
-        className={`modalView m-5 bg-white rounded-lg p-9 flex items-center shadow-lg shadow-black/25 `}
-        onRequestClose={() => {
-          setModalVisible(!modalVisible);
-        }}
-      >
-        <View className={`rounded-lg bg-white shadow-md m-1 p-2 ${iosClass}`}>
-          <Pressable
-            className="bg-violet-400 rounded-lg text-xl p-2 m-2"
-            onPress={() => setModalVisible(false)}
-          >
-            <Text className="text-white font-bold text-center">
-              Hide Picker
-            </Text>
-          </Pressable>
-          <View className="container">
-            <View className="flex flex-wrap justify-center flex-row">
-              <FlatList
-                data={mainlist}
-                numColumns={3}
-                renderItem={({ item }) => (
-                  <Pressable
-                    onPressIn={() => toggle(item)}
-                    unstable_pressDelay={50}
-                  >
-                    <View
-                      className={
-                        "w-36 h-12 m-1 rounded-lg p-1 border-solid border-2 border-slate-200" +
-                        selectToBg(isChecked(item))
-                      }
+    <Fragment>
+      <View className="flex-1 m-2">
+        <Modal
+          animationType="slide"
+          transparent={false}
+          visible={modalVisible}
+          className={`modalView m-5 bg-white rounded-lg p-9 flex items-center shadow-lg shadow-black/25 `}
+          onRequestClose={() => {
+            setModalVisible(!modalVisible);
+          }}
+        >
+          <View className={`rounded-lg bg-white shadow-md m-1 p-2 ${iosClass}`}>
+            <Pressable
+              className="bg-violet-400 rounded-lg text-xl p-2 m-2"
+              onPress={() => setModalVisible(false)}
+            >
+              <Text className="text-white font-bold text-center">
+                Hide Picker
+              </Text>
+            </Pressable>
+            <View className="container">
+              <View className="flex flex-wrap justify-center flex-row">
+                <FlatList
+                  data={mainlist}
+                  numColumns={3}
+                  renderItem={({ item }) => (
+                    <Pressable
+                      onPressIn={() => toggle(item)}
+                      unstable_pressDelay={50}
                     >
-                      <Text className={" " + selectToText(isChecked(item))}>
-                        {psychs[item]?.data?.title}
-                      </Text>
-                    </View>
-                  </Pressable>
-                )}
-                keyExtractor={(item) => {
-                  return `item-${item}-${isChecked(item)}`;
-                }}
-              />
+                      <View
+                        className={
+                          "w-36 h-12 m-1 rounded-lg p-1 border-solid border-2 border-slate-200" +
+                          selectToBg(isChecked(item))
+                        }
+                      >
+                        <Text className={" " + selectToText(isChecked(item))}>
+                          {psychs[item]?.data?.title}
+                        </Text>
+                      </View>
+                    </Pressable>
+                  )}
+                  keyExtractor={(item) => {
+                    return `item-${item}-${isChecked(item)}`;
+                  }}
+                />
+              </View>
             </View>
           </View>
-        </View>
-      </Modal>
+        </Modal>
 
-      <Pressable
-        className="bg-violet-400 p-2 m-2 rounded-lg"
-        onPress={() => setModalVisible(true)}
-      >
-        <Text className="text-white font-bold text-center">Show Picker</Text>
-      </Pressable>
-      {!modalVisible && (
-        <SectionList
-          sections={[
-            {
-              title: "",
-              data: [grid],
-              renderItem: ({ item }) => (
-                <FlatList
-                  key={JSON.stringify(chart)}
-                  data={item}
-                  numColumns={chart.length}
-                  renderItem={Item}
-                />
-              ),
-            },
-            {
-              title: "",
-              data: ["" as any],
-              renderItem: ({}) => (
-                <Fragment>
-                  <View className="container">
-                    <Text className="text-xl font-bold">Key</Text>
-                    <View className="flex flex-wrap flex-row">
-                      <Text
-                        className={`${risk_to_bg(
-                          "SR"
-                        )} text-m font-medium m-2 px-2.5 py-0.5 rounded w-32`}
-                      >
-                        Significant Risk
-                      </Text>
-                      <Text
-                        className={`${risk_to_bg(
-                          "GR"
-                        )} text-m font-medium m-2 px-2.5 py-0.5 rounded w-32`}
-                      >
-                        Greater Risk
-                      </Text>
-                      <Text
-                        className={`${risk_to_bg(
-                          "MR"
-                        )} text-m font-medium m-2 px-2.5 py-0.5 rounded w-32`}
-                      >
-                        Minor Risk
-                      </Text>
-                      <Text
-                        className={`${risk_to_bg(
-                          "LRS"
-                        )} text-m font-medium m-2 px-2.5 py-0.5 rounded w-32`}
-                      >
-                        Low Risk Synergy
-                      </Text>
-                      <Text
-                        className={`${risk_to_bg(
-                          "LRD"
-                        )} text-m font-medium m-2 px-2.5 py-0.5 rounded w-32`}
-                      >
-                        Low Risk Decrease
-                      </Text>
-                      <Text
-                        className={`${risk_to_bg(
-                          "LRNS"
-                        )} text-m font-medium m-2 px-2.5 py-0.5 rounded w-32`}
-                      >
-                        Low Risk No Synergy
-                      </Text>
-                    </View>
-                    <Text className="flex space-x-4">
-                      <AntDesign
-                        name="exclamationcircleo"
-                        size={24}
-                        color="black"
-                        className="h-7 w-7 inline"
+        <Pressable
+          className="bg-violet-400 p-2 m-2 rounded-lg"
+          onPress={() => setModalVisible(true)}
+        >
+          <Text className="text-white font-bold text-center">Show Picker</Text>
+        </Pressable>
+        {!modalVisible && (
+          <Fragment>
+            <ScrollView className="container">
+              <SectionList
+                horizontal={true}
+                sections={[
+                  {
+                    title: "",
+                    data: [grid],
+                    renderItem: ({ item }) => (
+                      <FlatList
+                        key={JSON.stringify(chart)}
+                        data={item}
+                        numColumns={chart.length}
+                        renderItem={Item}
                       />
-                      = low confidence in the risk rating
-                    </Text>
-                    <View className="rounded-lg bg-gray-50">
-                      <Text>Risk = danger or hazard</Text>
-                      <Text>Synergy = increased effects, or new effects</Text>
-                      <Text>Decrease = reduced effects</Text>
-                    </View>
-                    <View className="m-1 text-gray-800">
-                      <Text className="text-xl font-bold">
-                        Psychoactive Combination Matrix
-                      </Text>
-                      <Text className="text-md font-bold">
-                        What this chart tells you
-                      </Text>
-                      <Text className="text-gray-500 mb-6">
-                        How risky it is when you combine two psychoactives.
-                      </Text>
-                      <Text className="text-md font-bold">
-                        How this chart works
-                      </Text>
-                      <Text className="text-gray-500">
-                        The coloured square where two psychoactives intersect on
-                        the grid is coded to show their combination risk.
-                      </Text>
-                      <Text className="text-gray-500">
-                        Select psychoactives below to show them on the grid, or
-                        select psychoactives or combinations in the chart to
-                        learn more.
-                      </Text>
-                    </View>
-                  </View>
-                  <Disclaimer />
-                </Fragment>
-              ),
-            },
-          ]}
-          renderSectionHeader={({ section: { title } }) => (
-            <Text className="text-lg font-bold">{title}</Text>
-          )}
-          keyExtractor={(item, index) => index.toString()}
-        />
-      )}
+                    ),
+                  },
+                ]}
+                renderSectionHeader={({ section: { title } }) => (
+                  <Text className="text-lg font-bold">{title}</Text>
+                )}
+                keyExtractor={(item, index) => index.toString()}
+              />
+
+              <Text className="text-xl font-bold">Key</Text>
+              <View className="flex flex-wrap flex-row">
+                <Text
+                  className={`${risk_to_bg(
+                    "SR"
+                  )} text-m font-medium m-2 px-2.5 py-0.5 rounded w-32`}
+                >
+                  Significant Risk
+                </Text>
+                <Text
+                  className={`${risk_to_bg(
+                    "GR"
+                  )} text-m font-medium m-2 px-2.5 py-0.5 rounded w-32`}
+                >
+                  Greater Risk
+                </Text>
+                <Text
+                  className={`${risk_to_bg(
+                    "MR"
+                  )} text-m font-medium m-2 px-2.5 py-0.5 rounded w-32`}
+                >
+                  Minor Risk
+                </Text>
+                <Text
+                  className={`${risk_to_bg(
+                    "LRS"
+                  )} text-m font-medium m-2 px-2.5 py-0.5 rounded w-32`}
+                >
+                  Low Risk Synergy
+                </Text>
+                <Text
+                  className={`${risk_to_bg(
+                    "LRD"
+                  )} text-m font-medium m-2 px-2.5 py-0.5 rounded w-32`}
+                >
+                  Low Risk Decrease
+                </Text>
+                <Text
+                  className={`${risk_to_bg(
+                    "LRNS"
+                  )} text-m font-medium m-2 px-2.5 py-0.5 rounded w-32`}
+                >
+                  Low Risk No Synergy
+                </Text>
+              </View>
+              <Text className="flex space-x-4">
+                <AntDesign
+                  name="exclamationcircleo"
+                  size={24}
+                  color="black"
+                  className="h-7 w-7 inline"
+                />
+                = low confidence in the risk rating
+              </Text>
+              <View className="rounded-lg bg-gray-50">
+                <Text>Risk = danger or hazard</Text>
+                <Text>Synergy = increased effects, or new effects</Text>
+                <Text>Decrease = reduced effects</Text>
+              </View>
+              <View className="m-1 text-gray-800">
+                <Text className="text-xl font-bold">
+                  Psychoactive Combination Matrix
+                </Text>
+                <Text className="text-md font-bold">
+                  What this chart tells you
+                </Text>
+                <Text className="text-gray-500 mb-6">
+                  How risky it is when you combine two psychoactives.
+                </Text>
+                <Text className="text-md font-bold">How this chart works</Text>
+                <Text className="text-gray-500">
+                  The coloured square where two psychoactives intersect on the
+                  grid is coded to show their combination risk.
+                </Text>
+                <Text className="text-gray-500">
+                  Select psychoactives below to show them on the grid, or select
+                  psychoactives or combinations in the chart to learn more.
+                </Text>
+                <Disclaimer />
+              </View>
+            </ScrollView>
+          </Fragment>
+        )}
+      </View>
+      {/* <View className="container">
+    <Text className="text-xl font-bold">Key</Text>
+    <View className="flex flex-wrap flex-row">
+      <Text
+        className={`${risk_to_bg(
+          "SR"
+        )} text-m font-medium m-2 px-2.5 py-0.5 rounded w-32`}
+      >
+        Significant Risk
+      </Text>
+      <Text
+        className={`${risk_to_bg(
+          "GR"
+        )} text-m font-medium m-2 px-2.5 py-0.5 rounded w-32`}
+      >
+        Greater Risk
+      </Text>
+      <Text
+        className={`${risk_to_bg(
+          "MR"
+        )} text-m font-medium m-2 px-2.5 py-0.5 rounded w-32`}
+      >
+        Minor Risk
+      </Text>
+      <Text
+        className={`${risk_to_bg(
+          "LRS"
+        )} text-m font-medium m-2 px-2.5 py-0.5 rounded w-32`}
+      >
+        Low Risk Synergy
+      </Text>
+      <Text
+        className={`${risk_to_bg(
+          "LRD"
+        )} text-m font-medium m-2 px-2.5 py-0.5 rounded w-32`}
+      >
+        Low Risk Decrease
+      </Text>
+      <Text
+        className={`${risk_to_bg(
+          "LRNS"
+        )} text-m font-medium m-2 px-2.5 py-0.5 rounded w-32`}
+      >
+        Low Risk No Synergy
+      </Text>
     </View>
+    <Text className="flex space-x-4">
+      <AntDesign
+        name="exclamationcircleo"
+        size={24}
+        color="black"
+        className="h-7 w-7 inline"
+      />
+      = low confidence in the risk rating
+    </Text>
+    <View className="rounded-lg bg-gray-50">
+      <Text>Risk = danger or hazard</Text>
+      <Text>Synergy = increased effects, or new effects</Text>
+      <Text>Decrease = reduced effects</Text>
+    </View>
+    <View className="m-1 text-gray-800">
+      <Text className="text-xl font-bold">
+        Psychoactive Combination Matrix
+      </Text>
+      <Text className="text-md font-bold">
+        What this chart tells you
+      </Text>
+      <Text className="text-gray-500 mb-6">
+        How risky it is when you combine two psychoactives.
+      </Text>
+      <Text className="text-md font-bold">
+        How this chart works
+      </Text>
+      <Text className="text-gray-500">
+        The coloured square where two psychoactives intersect on
+        the grid is coded to show their combination risk.
+      </Text>
+      <Text className="text-gray-500">
+        Select psychoactives below to show them on the grid, or
+        select psychoactives or combinations in the chart to
+        learn more.
+      </Text>
+    </View>
+  </View>
+  <Disclaimer /> */}
+    </Fragment>
   );
 };
 
