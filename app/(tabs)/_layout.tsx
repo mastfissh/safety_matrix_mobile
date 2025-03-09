@@ -1,10 +1,10 @@
 import Entypo from "@expo/vector-icons/Entypo";
 import FontAwesome5 from "@expo/vector-icons/FontAwesome5";
 import { Tabs } from "expo-router";
-import { Platform } from 'react-native';
+import { Platform } from "react-native";
 
 export default function TabLayout() {
-  const headerShown  = Platform.OS === "android" ? false : true;
+  const headerShown = Platform.OS === "android" ? false : true;
   return (
     <Tabs screenOptions={{ tabBarActiveTintColor: "blue" }}>
       <Tabs.Screen

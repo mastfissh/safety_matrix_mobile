@@ -1,8 +1,8 @@
 import { Stack } from "expo-router/stack";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import * as ScreenOrientation from 'expo-screen-orientation';
-import { Platform } from 'react-native';
-import * as Device from 'expo-device';
+import * as ScreenOrientation from "expo-screen-orientation";
+import { Platform } from "react-native";
+import * as Device from "expo-device";
 import React, { useEffect } from "react";
 
 import "@/global.css";
@@ -14,15 +14,12 @@ async function unlockOrientationForTablets() {
   }
 }
 
-
 export default function Layout() {
   const headerShown = Platform.OS === "android" ? false : true;
   useEffect(() => {
     unlockOrientationForTablets();
   }, []);
 
-  
-  
   return (
     <GestureHandlerRootView style={{ flex: 1 }}>
       <Stack
