@@ -12,7 +12,6 @@ import React, { Fragment, useEffect, useState } from "react";
 import {
   FlatList,
   Modal,
-  Platform,
   Pressable,
   SectionList,
   Text,
@@ -29,7 +28,6 @@ const selectToText = (selected: boolean) => {
 };
 
 const App = () => {
-  const iosClass = Platform.OS === "android" ? "" : " mt-12 ";
   const [mainlist, setMainlist] = useState<any[]>([]);
   const [risks, setRisks] = useState<any[]>([]);
   const [psychs, setPsychs] = useState<{ [key: string]: any }>({});
@@ -156,7 +154,7 @@ const App = () => {
             setModalVisible(!modalVisible);
           }}
         >
-          <View className={`rounded-lg bg-white shadow-md m-1 p-2 ${iosClass}`}>
+          <View className="rounded-lg bg-white shadow-md m-1 p-2 ios:mt-12 ">
             <Pressable
               className="bg-violet-400 rounded-lg text-xl p-2 m-2"
               onPress={() => setModalVisible(false)}

@@ -29,7 +29,7 @@ const App = () => {
   const [data, setData] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [numColumns, setNumColumns] = useState(3);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<any>(null);
   useEffect(() => {
     const fetchAndSetData = async () => {
       try {
@@ -41,6 +41,7 @@ const App = () => {
       } catch (error) {
         console.debug("Error fetching data:", error);
         setIsLoading(false);
+        setError(error);
       }
     };
 

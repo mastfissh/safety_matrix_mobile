@@ -9,19 +9,17 @@ import {
   Image,
   SectionList,
   Text,
-  View,
-  Platform
+  View
 } from "react-native";
 
 const App = () => {
-  const ios = Platform.OS !== "android";
   const navigation = useNavigation();
   useEffect(() => {
     navigation.setOptions({ title: "Details" });
   }, [navigation]);
   const [data, setData] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<any>(null);
   useEffect(() => {
     const fetchAndSetData = async () => {
       try {
@@ -31,6 +29,7 @@ const App = () => {
       } catch (error) {
         console.debug("Error fetching data:", error);
         setIsLoading(false);
+        setError(error);
       }
     };
 
@@ -55,11 +54,6 @@ const App = () => {
       ""
     )}
   `;
-  // App store policies don't allow for showing dosage information.
-  // We'll just strip this entire section for now
-    if (ios) {
-      str = ''
-    }
   }
 
   if (isLoading) {
