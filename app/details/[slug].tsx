@@ -14,6 +14,7 @@ import {
 
 const App = () => {
   const navigation = useNavigation();
+  
   useEffect(() => {
     navigation.setOptions({ title: "Details" });
   }, [navigation]);
@@ -78,7 +79,7 @@ const App = () => {
         {
           title: "",
           data: ["" as any],
-          renderItem: ({}) => (
+          renderItem: (_) => (
             <View className="container">
               <View className="p-2">
                 <Text className="text-xl font-bold">{entry.data.title}</Text>
@@ -123,12 +124,12 @@ const App = () => {
         {
           title: "",
           data: ["" as any],
-          renderItem: ({}) => <MarkdownList str={str} />,
+          renderItem: (_) => <MarkdownList str={str} />,
         },
         {
           title: "",
           data: ["" as any],
-          renderItem: ({}) => <Disclaimer />,
+          renderItem: (_) => <Disclaimer />,
         },
       ]}
       renderSectionHeader={({ section: { title } }) => (

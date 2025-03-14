@@ -23,7 +23,7 @@ const App = () => {
   const [comboIdx, setComboIdx] = useState<{ [key: string]: any }>({});
   const [data, setData] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<any>(null);
   useEffect(() => {
     const fetchAndSetData = async () => {
       try {
@@ -45,6 +45,7 @@ const App = () => {
         setIsLoading(false);
       } catch (error) {
         console.debug("Error fetching data:", error);
+        setError(error);
         setIsLoading(false);
       }
     };
@@ -93,7 +94,7 @@ const App = () => {
         {
           title: "",
           data: ["" as any],
-          renderItem: ({}) => (
+          renderItem: (_) => (
             <View className="container flex flex-wrap flex-row items-center">
               <View className="m-4">
                 <Text className="text-xl font-bold">{psych1.data.title}</Text>
@@ -130,12 +131,12 @@ const App = () => {
         {
           title: "",
           data: ["" as any],
-          renderItem: ({}) => <MarkdownList str={str} />,
+          renderItem: (_) => <MarkdownList str={str} />,
         },
         {
           title: "",
           data: ["" as any],
-          renderItem: ({}) => <Disclaimer />,
+          renderItem: (_) => <Disclaimer />,
         },
       ]}
     />
