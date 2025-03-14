@@ -1,4 +1,4 @@
-// __mocks__/async-storage-mock.js
+
 const AsyncStorageMock = {
   getItem: jest.fn((key) => {
     return new Promise((resolve, reject) => {
