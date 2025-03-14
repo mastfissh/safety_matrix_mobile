@@ -10,6 +10,7 @@
     "web": "expo start --web",
     "test": "jest",
     "lint": "expo lint",
+    "tsc": "tsc",
     "doctor": "expo-doctor"
   },
   "jest": {

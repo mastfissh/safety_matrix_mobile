@@ -91,7 +91,7 @@ const App = () => {
       }
     }
     saveGridState(saved);
-  }, [currentState]);
+  }, [currentState,isLoading]);
   const chart = [""];
   for (const [key, val] of Object.entries(currentState.checked_boxes)) {
     if (val) {

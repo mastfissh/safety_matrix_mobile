@@ -43,7 +43,7 @@ async function cachedData(
   fallbackData: any
 ): Promise<any> {
   const API_URL = `${API_BASE_URL}/${endpoint}.json`;
-  const network = fetchAndCache(API_URL, key);
+  fetchAndCache(API_URL, key);
   const fallback = fetchFromCache(key, JSON.stringify(fallbackData));
   const result = await fallback;
   return JSON.parse(result);
