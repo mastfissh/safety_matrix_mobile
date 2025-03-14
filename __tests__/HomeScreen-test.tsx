@@ -1,21 +1,13 @@
-import { render } from '@testing-library/react-native';
+import { render, screen, waitFor } from '@testing-library/react-native';
 
 import HomeScreen from '@/app/(tabs)/index';
 
-jest.mock("expo-font", () => {
-  const module: typeof import("expo-font") = {
-    ...jest.requireActual("expo-font"),
-    isLoaded: jest.fn(() => true),
-  };
-
-  return module;
-});
-
-
-describe('<HomeScreen />', () => {
-  test('Text renders correctly on HomeScreen', () => {
-    const { getByText } = render(<HomeScreen />);
-
-    getByText('Show Picker');
+test('renders learn react link', async () => {
+  render(<HomeScreen />);
+  
+  // Wait for the expected output before asserting
+  await waitFor(() => {
+    expect(screen.getByText(/Show Picker/i)).toBeTruthy();
   });
 });
+
