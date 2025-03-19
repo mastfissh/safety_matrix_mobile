@@ -1,3 +1,4 @@
+import GridCell from "@/components/GridCell";
 import KeySection from "@/components/KeySection";
 import ModalPicker from "@/components/ModalPicker";
 import {
@@ -6,8 +7,6 @@ import {
   gridState,
   saveGridState,
 } from "@/lib/fetchData";
-import { risk, risk_to_bg } from "@/lib/util";
-import { Link } from "expo-router";
 import React, { Fragment, useEffect, useState } from "react";
 import {
   FlatList,
@@ -15,7 +14,7 @@ import {
   ScrollView,
   SectionList,
   Text,
-  View
+  View,
 } from "react-native";
 
 const App = () => {
@@ -95,43 +94,6 @@ const App = () => {
       grid.push([subcol, subrow]);
     }
   }
-  type ItemProps = string[];
-  const Cell = ({ item }: { item: ItemProps }) => {
-    item.sort();
-    const [x, y] = item;
-    if (x === "" || x === y) {
-      return (
-        <View className="bg-slate-50 p-1">
-          <Link
-            href={{
-              pathname: "/details/[slug]",
-              params: { slug: y },
-            }}
-            className="text-slate-800 w-24 "
-          >
-            {psychs[y]?.data?.title}
-          </Link>
-        </View>
-      );
-    }
-    let classes = " ";
-    if (!isLoading) {
-      classes = `${risk_to_bg(risk([x, y], risks))} p-1`;
-    }
-    return (
-      <View className={classes}>
-        <Link
-          href={{
-            pathname: "/combos/[combo]",
-            params: { combo: `${x}|${y}` },
-          }}
-          className="text-slate-800 w-24"
-        >
-          {psychs[x]?.data?.title} + {psychs[y]?.data?.title}
-        </Link>
-      </View>
-    );
-  };
 
   return (
     <Fragment>
@@ -165,7 +127,14 @@ const App = () => {
                         key={JSON.stringify(chart)}
                         data={item}
                         numColumns={chart.length}
-                        renderItem={Cell}
+                        renderItem={({ item }) => (
+                          <GridCell
+                            item={item}
+                            psychs={psychs}
+                            risks={risks}
+                            isLoading={isLoading}
+                          />
+                        )}
                       />
                     ),
                   },
