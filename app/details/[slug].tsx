@@ -1,16 +1,10 @@
 import Disclaimer from "@/components/Disclaimer";
-import MarkdownList from "@/components/MarkDownList";
 import { cachedPsychs } from "@/lib/fetchData";
 import AntDesign from "@expo/vector-icons/AntDesign";
 import { useLocalSearchParams, useNavigation } from "expo-router";
 import React, { useEffect, useState } from "react";
-import {
-  ActivityIndicator,
-  Image,
-  SectionList,
-  Text,
-  View,
-} from "react-native";
+import { ActivityIndicator, SectionList,Image, Text, View } from "react-native";
+import { Image as ImageExpo } from "expo-image";
 
 const App = () => {
   const navigation = useNavigation();
@@ -36,7 +30,7 @@ const App = () => {
 
     fetchAndSetData();
   }, []);
-  let str = "";
+
   const { slug }: { slug: string } = useLocalSearchParams();
   let entry = {} as any;
   if (!isLoading) {
@@ -44,27 +38,7 @@ const App = () => {
     for (let sub of data) {
       idx[sub["slug"]] = sub;
     }
-    const record = idx[slug];
-    entry = record;
-    str = `
-## ${record.data.dosage_table.title} 
-| Effect | Dose |
-| --- | --- |
-| Threshold | ${record.data.dosage_table.threshold} |
-| Light | ${record.data.dosage_table.light} |
-| Common | ${record.data.dosage_table.common} |
-| Strong | ${record.data.dosage_table.strong} |
-| Heavy | ${record.data.dosage_table.heavy} |
-
-## ${record.data.duration_chart_title}
-|  | Duration |
-| --- | --- |
-| Total | ${record.data.duration_chart.total} |
-| Onset | ${record.data.duration_chart.onset} |
-| Coming Up | ${record.data.duration_chart.coming_up} |
-| Plateau | ${record.data.duration_chart.plateau} |
-| Coming Down | ${record.data.duration_chart.coming_down} |
-`;
+    entry = idx[slug];
   }
 
   if (isLoading) {
@@ -127,13 +101,97 @@ const App = () => {
                   {entry.data.negative_effects}
                 </Text>
               </View>
+              
+              <View className="p-4">
+                <Text className="text-lg font-bold mb-4">
+                  {entry.data.dosage_table.title}
+                </Text>
+                <View className="flex flex-row justify-between mb-2 border-b border-gray-300">
+                  <Text className="text-center w-1/2">Effect</Text>
+                  <Text className="text-center w-1/2">Dose</Text>
+                </View>
+                <View>
+                  <View className="flex flex-row justify-between py-2 border-b border-gray-300">
+                    <Text className="text-center w-1/2">Threshold</Text>
+                    <Text className="text-center w-1/2">
+                      {entry.data.dosage_table.threshold}
+                    </Text>
+                  </View>
+                  <View className="flex flex-row justify-between py-2 border-b border-gray-300">
+                    <Text className="text-center w-1/2">Light</Text>
+                    <Text className="text-center w-1/2">
+                      {entry.data.dosage_table.light}
+                    </Text>
+                  </View>
+                  <View className="flex flex-row justify-between py-2 border-b border-gray-300">
+                    <Text className="text-center w-1/2">Common</Text>
+                    <Text className="text-center w-1/2">
+                      {entry.data.dosage_table.common}
+                    </Text>
+                  </View>
+                  <View className="flex flex-row justify-between py-2 border-b border-gray-300">
+                    <Text className="text-center w-1/2">Strong</Text>
+                    <Text className="text-center w-1/2">
+                      {entry.data.dosage_table.strong}
+                    </Text>
+                  </View>
+                  <View className="flex flex-row justify-between py-2 border-b border-gray-300">
+                    <Text className="text-center w-1/2">Heavy</Text>
+                    <Text className="text-center w-1/2">
+                      {entry.data.dosage_table.heavy}
+                    </Text>
+                  </View>
+                </View>
+              </View>
+              <Image
+                source={{
+                  uri: `https://psychcombo.com/charts/${slug}.png`,
+                }}
+                className="h-64 w-128 rounded-lg p-2"
+              />
+              <View className="p-4">
+                <Text className="text-lg font-bold mb-4">
+                  {entry.data.duration_chart_title}
+                </Text>
+                <View className="flex flex-row justify-between mb-2 border-b border-gray-300">
+                  <Text className="text-center w-1/2"></Text>
+                  <Text className="text-center w-1/2">Duration</Text>
+                </View>
+                <View>
+                  <View className="flex flex-row justify-between py-2 border-b border-gray-300">
+                    <Text className="text-center w-1/2">Total</Text>
+                    <Text className="text-center w-1/2">
+                      {entry.data.duration_chart.total}
+                    </Text>
+                  </View>
+                  <View className="flex flex-row justify-between py-2 border-b border-gray-300">
+                    <Text className="text-center w-1/2">Onset</Text>
+                    <Text className="text-center w-1/2">
+                      {entry.data.duration_chart.onset}
+                    </Text>
+                  </View>
+                  <View className="flex flex-row justify-between py-2 border-b border-gray-300">
+                    <Text className="text-center w-1/2">Coming Up</Text>
+                    <Text className="text-center w-1/2">
+                      {entry.data.duration_chart.coming_up}
+                    </Text>
+                  </View>
+                  <View className="flex flex-row justify-between py-2 border-b border-gray-300">
+                    <Text className="text-center w-1/2">Plateau</Text>
+                    <Text className="text-center w-1/2">
+                      {entry.data.duration_chart.plateau}
+                    </Text>
+                  </View>
+                  <View className="flex flex-row justify-between py-2 border-b border-gray-300">
+                    <Text className="text-center w-1/2">Coming Down</Text>
+                    <Text className="text-center w-1/2">
+                      {entry.data.duration_chart.coming_down}
+                    </Text>
+                  </View>
+                </View>
+              </View>
             </View>
           ),
-        },
-        {
-          title: "",
-          data: ["" as any],
-          renderItem: (_) => <MarkdownList str={str} />,
         },
         {
           title: "",
