@@ -147,7 +147,7 @@ const App = () => {
                 source={{
                   uri: `https://psychcombo.com/charts/${slug}.png`,
                 }}
-                className="h-64 w-128 rounded-lg p-2"
+                className="h-64 w-full rounded-lg p-2"
               />
               <View className="p-4">
                 <Text className="text-lg font-bold mb-4">
