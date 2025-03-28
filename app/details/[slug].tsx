@@ -9,12 +9,12 @@ import {
   Image,
   SectionList,
   Text,
-  View
+  View,
 } from "react-native";
 
 const App = () => {
   const navigation = useNavigation();
-  
+
   useEffect(() => {
     navigation.setOptions({ title: "Details" });
   }, [navigation]);
@@ -46,15 +46,25 @@ const App = () => {
     }
     const record = idx[slug];
     entry = record;
-
     str = `
-  ${record.body
-    .replaceAll("import Chart from '../../components/chart.astro';", "")
-    .replaceAll(
-      "<Chart title={frontmatter.duration_chart_title} data={frontmatter.duration_chart} />",
-      ""
-    )}
-  `;
+## ${record.data.dosage_table.title} 
+| Effect | Dose |
+| --- | --- |
+| Threshold | ${record.data.dosage_table.threshold} |
+| Light | ${record.data.dosage_table.light} |
+| Common | ${record.data.dosage_table.common} |
+| Strong | ${record.data.dosage_table.strong} |
+| Heavy | ${record.data.dosage_table.heavy} |
+
+## ${record.data.duration_chart_title}
+|  | Duration |
+| --- | --- |
+| Total | ${record.data.duration_chart.total} |
+| Onset | ${record.data.duration_chart.onset} |
+| Coming Up | ${record.data.duration_chart.coming_up} |
+| Plateau | ${record.data.duration_chart.plateau} |
+| Coming Down | ${record.data.duration_chart.coming_down} |
+`;
   }
 
   if (isLoading) {
@@ -73,7 +83,6 @@ const App = () => {
     );
   }
   return (
-    
     <SectionList
       sections={[
         {
