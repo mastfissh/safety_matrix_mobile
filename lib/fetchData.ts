@@ -4,7 +4,7 @@ import psychoactivesFallback from "@/assets/data/psychoactives.json";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Application from "expo-application";
 
-const API_BASE_URL = "https://psychcombo.com";
+const API_BASE_URL = "https://psychcombo.com/apiv1";
 
 function versioned(key: string): string {
   const versionId = Application.nativeBuildVersion;
