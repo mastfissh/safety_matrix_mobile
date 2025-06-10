@@ -19,6 +19,11 @@
       "./jest.setup.ts"
     ]
   },
+  "overrides": {
+    "react-native-marked": {
+      "react": "19.0.0"
+    }
+  },
   "expo": {
     "doctor": {
       "reactNativeDirectoryCheck": {
