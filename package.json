@@ -25,7 +25,7 @@
         "listUnknownPackages": false
       }
     }
-  }, 
+  },
   "dependencies": {
     "@expo/vector-icons": "^14.1.0",
     "@react-native-async-storage/async-storage": "2.1.2",
