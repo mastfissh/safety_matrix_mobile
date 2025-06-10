@@ -24,11 +24,7 @@
         "track": "internal",
         "changesNotSentForReview": true
       },
-      "ios": {
-      "appleId": "mastfish@gmail.com",
-      "ascAppId": "6741306670",
-      "appleTeamId": "M8VYF5C359"
-    }
+
     }
   }
 }
