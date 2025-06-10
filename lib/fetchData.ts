@@ -1,5 +1,5 @@
 import combosFallback from "@/assets/data/combos.json";
-import risksFallback from "@/assets/data/data.json";
+import risksFallback from "@/assets/data/risks.json";
 import psychoactivesFallback from "@/assets/data/psychoactives.json";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Application from "expo-application";
@@ -58,7 +58,7 @@ export const cachedCombos = () =>
 export async function gridState(): Promise<any> {
   return fetchFromCache(
     "chosenPsychs",
-    JSON.stringify(["alcohol", "cannabis", "cocaine", "ketamine"])
+    JSON.stringify(["alcohol", "cannabis-species", "cocaine", "ketamine"])
   );
 }
 
