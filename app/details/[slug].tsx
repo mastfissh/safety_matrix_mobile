@@ -4,7 +4,6 @@ import AntDesign from "@expo/vector-icons/AntDesign";
 import { useLocalSearchParams, useNavigation } from "expo-router";
 import React, { useEffect, useState } from "react";
 import { ActivityIndicator, SectionList,Image, Text, View } from "react-native";
-import { Image as ImageExpo } from "expo-image";
 
 const App = () => {
   const navigation = useNavigation();
